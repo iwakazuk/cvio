@@ -1,0 +1,3 @@
+# Include the CocoaPods configuration file
+# Modify the path if necessary based on your project structure
+$(inherited)
