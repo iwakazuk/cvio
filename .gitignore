@@ -30,3 +30,9 @@ bin/
 
 # FVM Version Cache
 .fvm/
+
+# Flutter build cache
+.env
+.dart_tool
+.idea
+build

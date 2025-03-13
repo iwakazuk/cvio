@@ -4,8 +4,8 @@ desc "初期セットアップを実行"
 task :setup do
   puts "Setting up the project..."
   # 必要なセットアップコマンドを記述
-  sh "flutter pub get"
-  sh "flutter packages upgrade"
+  sh "fvm flutter pub get"
+  sh "fvm flutter packages upgrade"
   sh "fvm flutter doctor"
   puts "Setup complete."
 end
