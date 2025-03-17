@@ -1,8 +1,8 @@
-import 'package:cvio/screens/personal_info/personal_info_error_message_provider.dart';
+import 'package:cvio/provider/personal_info_error_message_provider.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import '../../models/personal_info.dart';
-import '../../repository/personal_info_repository.dart';
+import '../models/personal_info.dart';
+import '../repository/personal_info_repository.dart';
 
 /// 個人情報を管理する StateNotifier
 class PersonalInfoNotifier extends StateNotifier<PersonalInfo> {
@@ -246,9 +246,14 @@ class PersonalInfoNotifier extends StateNotifier<PersonalInfo> {
     state = state.copyWith(emergencyAddressKana: newEmergencyAddressKana);
   }
 
-  /// PersonalInfo 全体を一括で更新するメソッド（オマケ）
+  /// PersonalInfo 全体を一括で更新するメソッド
   void updateAll(PersonalInfo newInfo) {
     state = newInfo;
+  }
+
+  /// リセット
+  void reset() {
+    state = PersonalInfo();
   }
 }
 

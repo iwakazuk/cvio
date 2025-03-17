@@ -1,15 +1,15 @@
-import 'package:cvio/screens/personal_info/personal_info_error_message_provider.dart';
-import 'package:cvio/screens/personal_info/personal_info_provider.dart';
+import 'package:cvio/provider/personal_info_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import '../../utils/app_space.dart';
-import '../../utils/app_text_style.dart';
-import '../../widgets/app_border.dart';
-import '../../widgets/app_container.dart';
-import '../../widgets/app_drop_down.dart';
-import '../../widgets/app_text_field.dart';
+import '../provider/personal_info_error_message_provider.dart';
+import '../utils/app_space.dart';
+import '../utils/app_text_style.dart';
+import '../widgets/app_border.dart';
+import '../widgets/app_container.dart';
+import '../widgets/app_drop_down.dart';
+import '../widgets/app_text_field.dart';
 
 class PersonalInfoScreen extends HookConsumerWidget {
   PersonalInfoScreen({Key? key}) : super(key: key);
@@ -32,6 +32,7 @@ class PersonalInfoScreen extends HookConsumerWidget {
         leading: IconButton(
           icon: const Icon(Icons.arrow_back_ios),
           onPressed: () {
+            personalInfoNotifier.reset();
             ref.read(personalInfoErrorMessageProvider.notifier).reset();
             Navigator.of(context).pop();
           },

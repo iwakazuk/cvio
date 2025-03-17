@@ -103,7 +103,7 @@ class HomeScreen extends StatelessWidget {
                     icon: Icons.work,
                     label: '職歴・学歴',
                     onTap: () {
-                      context.push('/education-and-work');
+                      context.push('/history');
                     },
                   ),
                   _buildFeatureCard(

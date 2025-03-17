@@ -37,12 +37,26 @@ class _AppDropdownState extends State<AppDropdown> {
   @override
   void initState() {
     super.initState();
-    // 初期値がリスト内に含まれているかを判定
+    _updateSelectedValue();
+  }
+
+  /// 親ウィジェットからパラメータが変化した際に呼ばれる
+  @override
+  void didUpdateWidget(covariant AppDropdown oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    // initialValue か values が変わったら再チェックする
+    if (widget.initialValue != oldWidget.initialValue ||
+        widget.values != oldWidget.values) {
+      _updateSelectedValue();
+    }
+  }
+
+  /// ドロップダウン表示用に _selectedValue を更新する共通メソッド
+  void _updateSelectedValue() {
     if (widget.initialValue != null &&
         widget.values.contains(widget.initialValue)) {
       _selectedValue = widget.initialValue;
     } else {
-      // リストに含まれていない場合は null 扱いとする
       _selectedValue = null;
     }
   }
@@ -60,7 +74,7 @@ class _AppDropdownState extends State<AppDropdown> {
               child: Text(
                 widget.label,
                 style:
-                    const TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+                const TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
               ),
             ),
             Expanded(
@@ -95,7 +109,7 @@ class _AppDropdownState extends State<AppDropdown> {
           Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Icon(
+              const Icon(
                 Icons.error,
                 color: Colors.red,
                 size: 16,
