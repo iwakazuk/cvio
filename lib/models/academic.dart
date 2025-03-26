@@ -1,45 +1,29 @@
-/// 学歴
-class Academic {
-  /// 学校名
-  final String? name;
+import 'package:isar/isar.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-  /// 専攻
-  final String? major;
+part 'academic.freezed.dart';
 
-  /// 入学時期 / 卒業時期（年）
-  final String? year;
-
-  /// 入学時期 / 卒業時期（月）
-  final String? month;
-
-  /// 入学 or 卒業
-  final bool? isJoin;
-
-  Academic({
-    this.name,
-    this.major,
-    this.year,
-    this.month,
-    this.isJoin,
-  });
-
-  /// copyWith メソッド
-  Academic copyWith({
+@freezed
+class Academic with _$Academic {
+  const factory Academic({
+    /// 学校名
     String? name,
-    String? major,
-    String? year,
-    String? month,
-    bool? isJoin,
-  }) {
-    return Academic(
-      name: name ?? this.name,
-      major: major ?? this.major,
-      year: year ?? this.year,
-      month: month ?? this.month,
-      isJoin: isJoin ?? this.isJoin,
-    );
-  }
 
+    /// 専攻
+    String? major,
+
+    /// 入学時期 / 卒業時期（年）
+    String? year,
+
+    /// 入学時期 / 卒業時期（月）
+    String? month,
+
+    /// 入学 or 卒業
+    bool? isJoin,
+  }) = _Academic;
+}
+
+extension AcademicExtension on Academic {
   /// DB 等に保存する際に Map<String, dynamic> に変換する
   Map<String, dynamic> toMap() {
     return {
@@ -52,7 +36,7 @@ class Academic {
   }
 
   /// DB から読み込んだ Map<String, dynamic> から Academic を生成
-  factory Academic.fromMap(Map<String, dynamic> map) {
+  static Academic fromMap(Map<String, dynamic> map) {
     return Academic(
       name: map['name'],
       major: map['major'],

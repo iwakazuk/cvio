@@ -1,5 +1,23 @@
 # This is a generated file; do not edit or check into version control.
+file_picker=/Users/iwasaki/.pub-cache/hosted/pub.dev/file_picker-9.2.2/
+file_selector_linux=/Users/iwasaki/.pub-cache/hosted/pub.dev/file_selector_linux-0.9.3+2/
+file_selector_macos=/Users/iwasaki/.pub-cache/hosted/pub.dev/file_selector_macos-0.9.4+2/
+file_selector_windows=/Users/iwasaki/.pub-cache/hosted/pub.dev/file_selector_windows-0.9.3+4/
 flutter_pdfview=/Users/iwasaki/.pub-cache/hosted/pub.dev/flutter_pdfview-1.4.0/
+flutter_plugin_android_lifecycle=/Users/iwasaki/.pub-cache/hosted/pub.dev/flutter_plugin_android_lifecycle-2.0.27/
+flutter_secure_storage=/Users/iwasaki/.pub-cache/hosted/pub.dev/flutter_secure_storage-7.0.1/
+flutter_secure_storage_linux=/Users/iwasaki/.pub-cache/hosted/pub.dev/flutter_secure_storage_linux-1.2.2/
+flutter_secure_storage_macos=/Users/iwasaki/.pub-cache/hosted/pub.dev/flutter_secure_storage_macos-2.0.1/
+flutter_secure_storage_web=/Users/iwasaki/.pub-cache/hosted/pub.dev/flutter_secure_storage_web-1.2.1/
+flutter_secure_storage_windows=/Users/iwasaki/.pub-cache/hosted/pub.dev/flutter_secure_storage_windows-1.1.3/
+image_picker=/Users/iwasaki/.pub-cache/hosted/pub.dev/image_picker-1.1.2/
+image_picker_android=/Users/iwasaki/.pub-cache/hosted/pub.dev/image_picker_android-0.8.12+22/
+image_picker_for_web=/Users/iwasaki/.pub-cache/hosted/pub.dev/image_picker_for_web-3.0.6/
+image_picker_ios=/Users/iwasaki/.pub-cache/hosted/pub.dev/image_picker_ios-0.8.12+2/
+image_picker_linux=/Users/iwasaki/.pub-cache/hosted/pub.dev/image_picker_linux-0.2.1+2/
+image_picker_macos=/Users/iwasaki/.pub-cache/hosted/pub.dev/image_picker_macos-0.2.1+2/
+image_picker_windows=/Users/iwasaki/.pub-cache/hosted/pub.dev/image_picker_windows-0.2.1+1/
+isar_flutter_libs=/Users/iwasaki/.pub-cache/hosted/pub.dev/isar_flutter_libs-4.0.0-dev.14/
 path_provider=/Users/iwasaki/.pub-cache/hosted/pub.dev/path_provider-2.1.5/
 path_provider_android=/Users/iwasaki/.pub-cache/hosted/pub.dev/path_provider_android-2.2.16/
 path_provider_foundation=/Users/iwasaki/.pub-cache/hosted/pub.dev/path_provider_foundation-2.4.1/

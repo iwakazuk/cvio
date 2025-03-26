@@ -1,57 +1,35 @@
+import 'package:freezed_annotation/freezed_annotation.dart';
+
+part 'work.freezed.dart';
+
 /// 職歴
-class Work {
-  /// 会社名
-  final String? name;
-
-  /// 役職
-  final String? position;
-
-  /// 入社時期 / 退職時期（年）
-  final String? year;
-
-  /// 入社時期 / 退職時期（月）
-  final String? month;
-
-  /// 職務内容
-  final String? description;
-
-  /// 退職理由
-  final String? reason;
-
-  /// 入社 or 退職
-  final bool? isJoin;
-
-  Work({
-    this.name,
-    this.position,
-    this.year,
-    this.month,
-    this.description,
-    this.reason,
-    this.isJoin,
-  });
-
-  /// copyWith メソッド
-  Work copyWith({
+@freezed
+class Work with _$Work {
+  const factory Work({
+    /// 会社名
     String? name,
-    String? position,
-    String? year,
-    String? month,
-    String? description,
-    String? reason,
-    bool? isJoin,
-  }) {
-    return Work(
-      name: name ?? this.name,
-      position: position ?? this.position,
-      year: year ?? this.year,
-      month: month ?? this.month,
-      description: description ?? this.description,
-      reason: reason ?? this.reason,
-      isJoin: isJoin ?? this.isJoin,
-    );
-  }
 
+    /// 役職
+    String? position,
+
+    /// 入社時期 / 退職時期（年）
+    String? year,
+
+    /// 入社時期 / 退職時期（月）
+    String? month,
+
+    /// 職務内容
+    String? description,
+
+    /// 退職理由
+    String? reason,
+
+    /// 入社 or 退職
+    bool? isJoin,
+  }) = _Work;
+}
+
+extension WorkExtension on Work {
   /// DB 等に保存する際に Map<String, dynamic> に変換する
   Map<String, dynamic> toMap() {
     return {
@@ -66,7 +44,7 @@ class Work {
   }
 
   /// DB から読み込んだ Map<String, dynamic> から Work を生成
-  factory Work.fromMap(Map<String, dynamic> map) {
+  static Work fromMap(Map<String, dynamic> map) {
     return Work(
       name: map['name'],
       position: map['position'],

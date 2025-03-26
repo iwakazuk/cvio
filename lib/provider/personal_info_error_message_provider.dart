@@ -1,7 +1,6 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../models/personal_info.dart';
-import '../repository/personal_info_repository.dart';
 
 /// 個人情報のエラーメッセージを管理する StateNotifier
 class PersonalInfoErrorMessageNotifier extends StateNotifier<PersonalInfo> {

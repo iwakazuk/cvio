@@ -1,33 +1,23 @@
+import 'package:freezed_annotation/freezed_annotation.dart';
+
+part 'qualification.freezed.dart';
+
 /// 資格
-class Qualification {
-  /// 資格名
-  final String? name;
-
-  /// 取得時期(年)
-  final String? year;
-
-  /// 取得時期(月)
-  final String? month;
-
-  Qualification({
-    this.name,
-    this.year,
-    this.month,
-  });
-
-  /// copyWith メソッド
-  Qualification copyWith({
+@freezed
+class Qualification with _$Qualification {
+  const factory Qualification({
+    /// 資格名
     String? name,
-    String? year,
-    String? month,
-  }) {
-    return Qualification(
-      name: name ?? this.name,
-      year: year ?? this.year,
-      month: month ?? this.month,
-    );
-  }
 
+    /// 取得時期(年)
+    String? year,
+
+    /// 取得時期(月)
+    String? month,
+  }) = _Qualification;
+}
+
+extension QualificationExtension on Qualification {
   /// DB 等に保存する際に Map<String, dynamic> に変換する
   Map<String, dynamic> toMap() {
     return {
@@ -38,7 +28,7 @@ class Qualification {
   }
 
   /// DB から読み込んだ Map<String, dynamic> から Qualification を生成
-  factory Qualification.fromMap(Map<String, dynamic> map) {
+  static Qualification fromMap(Map<String, dynamic> map) {
     return Qualification(
       name: map['name'],
       year: map['year'],

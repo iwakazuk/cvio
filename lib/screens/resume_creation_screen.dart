@@ -78,11 +78,11 @@ class _ResumeCreationScreenState extends State<ResumeCreationScreen> {
                         });
                       },
                       decoration: BoxDecoration(
-                        color: Colors.grey[800],
+                        color: Theme.of(context).focusColor,
                         borderRadius: BorderRadius.circular(8),
                       ),
                       thumbDecoration: BoxDecoration(
-                        color: Colors.grey[600],
+                        color: Theme.of(context).disabledColor.withAlpha(70),
                         borderRadius: BorderRadius.circular(8),
                       ),
                       isStretch: true,
