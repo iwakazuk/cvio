@@ -2,7 +2,6 @@ import 'package:cvio/models/academic.dart';
 import 'package:cvio/models/qualification.dart';
 import 'package:cvio/models/work.dart';
 import 'package:cvio/widgets/app_border.dart';
-import 'package:cvio/widgets/primary_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -10,7 +9,6 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import '../utils/app_space.dart';
 import '../utils/app_text_style.dart';
 import '../widgets/app_container.dart';
-import '../widgets/secondary_button.dart';
 import '../provider/history_provider.dart';
 
 class HistoryScreen extends HookConsumerWidget {

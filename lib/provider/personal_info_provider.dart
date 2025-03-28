@@ -121,6 +121,10 @@ class PersonalInfoNotifier extends StateNotifier<PersonalInfo> {
     return true;
   }
 
+  void updateImage(String? image) {
+    state = state.copyWith(image: image);
+  }
+
   /// 氏
   void updateLastName(String newLastName) {
     state = state.copyWith(lastName: newLastName);

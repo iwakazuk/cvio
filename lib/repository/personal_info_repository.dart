@@ -19,49 +19,16 @@ class PersonalInfoRepository {
 
     final jsonString = raw as String;
     final map = jsonDecode(jsonString) as Map<String, dynamic>;
-    return PersonalInfoExtension.fromMap(map);
+    return PersonalInfo.fromJson(map);
   }
 
   /// [info] を DB に保存(上書き)
   Future<void> savePersonalInfo(PersonalInfo info) async {
     final key = await EncryptionHelper.getOrCreateEncryptionKey();
     final box = await Hive.openBox(_boxName, encryptionCipher: HiveAesCipher(key));
-    final jsonString = jsonEncode(info.toMap());
+    final jsonString = jsonEncode(info.toJson());
     await box.put(_key, jsonString);
   }
-
-  /// NOTE: 以下は Isar を使った場合のコード
-  /// 安定バージョンが出るまでコメントアウトしておく
-  // /// DB から [PersonalInfo] を読み込み
-  // /// データがまだない場合は null を返す
-  // Future<PersonalInfo?> loadPersonalInfo() async {
-  //   final isar = await IsarService.getInstance();
-  //   final domain =  isar.personalInfoDocs.get(1)?.toDomain();
-  //   print('loadPersonalInfo: ${domain?.phone}');
-  //   return domain;
-  // }
-  //
-  // /// [info] を DB に保存(上書き)
-  // Future<void> savePersonalInfo(PersonalInfo info) async {
-  //   final isar = await IsarService.getInstance();
-  //
-  //   print('savePersonalInfo: ${info.phone}');
-  //   // docを作成
-  //   final doc = PersonalInfoDoc.fromDomain(info, 1);
-  //
-  //   // 書き込みトランザクション
-  //   await isar.writeAsync((isar) {
-  //     isar.personalInfoDocs.put(doc);
-  //   });
-  // }
-  //
-  // /// 削除
-  // Future<bool> deletePersonalInfoDoc(int id) async {
-  //   final isar = await IsarService.getInstance();
-  //   return await isar.writeAsync((isar) {
-  //     return isar.personalInfoDocs.delete(id);
-  //   });
-  // }
 }
 
 final personalInfoRepositoryProvider = Provider<PersonalInfoRepository>((ref) {

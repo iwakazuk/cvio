@@ -1,7 +1,14 @@
+import 'dart:io';
+
 import 'package:cvio/provider/personal_info_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:file_picker/file_picker.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:path/path.dart' as p;
 
 import '../provider/personal_info_error_message_provider.dart';
 import '../utils/app_space.dart';
@@ -88,6 +95,18 @@ class PersonalInfoScreen extends HookConsumerWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             AppSpace.hM,
+
+            // 証明写真
+            AppContainer(
+              title: '証明写真',
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  _image(context, ref),
+                  selectImageButton(ref),
+                ],
+              ),
+            ),
 
             // 氏名
             AppContainer(
@@ -388,5 +407,146 @@ class PersonalInfoScreen extends HookConsumerWidget {
         ),
       ),
     );
+  }
+
+  // 証明写真 表示用Widget例
+  Widget _image(BuildContext context, WidgetRef ref) {
+    final imagePath = ref.watch(personalInfoProvider).image;
+
+    // パスが null なら未選択状態
+    if (imagePath == null) {
+      return const Text('まだ画像が選択されていません');
+    }
+
+    // 実ファイルの存在をチェック
+    final file = File(imagePath);
+    if (!file.existsSync()) {
+      return const Text('まだ画像が選択されていません');
+    }
+
+    // ファイルが存在する場合のみ画像を表示
+    return Padding(
+      padding: AppSpace.pyM,
+      child: Image.file(
+        file,
+        width: 70,
+        height: 70,
+        fit: BoxFit.cover,
+      ),
+    );
+  }
+
+  Widget selectImageButton(WidgetRef ref) {
+    return PopupMenuButton<int>(
+      tooltip: '',
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(12),
+      ),
+      splashRadius: 12,
+      borderRadius: BorderRadius.circular(12),
+      color: Colors.grey[700],
+      child: Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(12),
+          color: Colors.white10,
+        ),
+        margin: AppSpace.pM,
+        padding: AppSpace.pxM + AppSpace.pyXS,
+        child: Text("変更"),
+      ),
+      onSelected: (value) {
+        switch (value) {
+          case 0:
+            _pickImage(ref);
+            break;
+          case 1:
+            _pickFile(ref);
+            break;
+          case 2:
+            ref.read(personalInfoProvider.notifier).updateImage(null);
+        }
+      },
+      itemBuilder: (BuildContext context) => <PopupMenuEntry<int>>[
+        PopupMenuItem<int>(
+          value: 0,
+          child: Row(
+            children: const [
+              Icon(Icons.image),
+              AppSpace.wM,
+              Text('写真ライブラリ'),
+            ],
+          ),
+        ),
+        PopupMenuItem<int>(
+          value: 1,
+          child: Row(
+            children: const [
+              Icon(Icons.insert_drive_file),
+              AppSpace.wM,
+              Text('ファイルを選択'),
+            ],
+          ),
+        ),
+        PopupMenuItem<int>(
+          value: 2,
+          child: Row(
+            children: const [
+              Icon(Icons.delete),
+              AppSpace.wM,
+              Text('画像を削除'),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+
+  // ギャラリーから画像を選択（ImagePicker）
+  Future<void> _pickImage(WidgetRef ref) async {
+    try {
+      final XFile? pickedFile = await ImagePicker().pickImage(
+        source: ImageSource.gallery,
+      );
+      if (pickedFile == null) return;
+      // アプリの書き込み可能なディレクトリ（Documentフォルダなど）を取得
+      final appDocDir = await getApplicationDocumentsDirectory();
+
+      // 元のファイル名を使ってコピー先のパスを組み立てる
+      final fileName = p.basename(pickedFile.path);
+      final savedPath = p.join(appDocDir.path, fileName);
+
+      // ファイルをコピー
+      final savedFile = await File(pickedFile.path).copy(savedPath);
+      ref.read(personalInfoProvider.notifier).updateImage(savedFile.path);
+    } catch (e) {
+      debugPrint('画像選択中にエラーが発生しました: $e');
+    }
+  }
+
+  // FilePickerを使って画像ファイルを選択
+  Future<void> _pickFile(WidgetRef ref) async {
+    try {
+      final result = await FilePicker.platform.pickFiles(
+        type: FileType.custom,
+        allowedExtensions: ['png', 'jpg', 'jpeg', 'heic'],
+        allowMultiple: false,
+      );
+      if (result == null || result.files.isEmpty) return null;
+
+      // 選択されたファイルのパス（仮）
+      final pickedPath = result.files.single.path;
+      if (pickedPath == null) return null;
+
+      final docDir = await getApplicationDocumentsDirectory();
+      final fileName = p.basename(pickedPath);
+      final savedPath = p.join(docDir.path, fileName);
+
+      // ドキュメントフォルダにコピー
+      final savedFile = await File(pickedPath).copy(savedPath);
+
+      ref.read(personalInfoProvider.notifier).updateImage(savedFile.path);
+    } catch (e) {
+      debugPrint('ファイル選択中にエラーが発生しました: $e');
+    }
   }
 }

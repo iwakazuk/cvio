@@ -1,10 +1,10 @@
-import 'package:isar/isar.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'academic.freezed.dart';
+part 'academic.g.dart';
 
 @freezed
-class Academic with _$Academic {
+abstract class Academic with _$Academic {
   const factory Academic({
     /// 学校名
     String? name,
@@ -21,28 +21,7 @@ class Academic with _$Academic {
     /// 入学 or 卒業
     bool? isJoin,
   }) = _Academic;
-}
 
-extension AcademicExtension on Academic {
-  /// DB 等に保存する際に Map<String, dynamic> に変換する
-  Map<String, dynamic> toMap() {
-    return {
-      'name': name,
-      'major': major,
-      'year': year,
-      'month': month,
-      'isJoin': isJoin,
-    };
-  }
-
-  /// DB から読み込んだ Map<String, dynamic> から Academic を生成
-  static Academic fromMap(Map<String, dynamic> map) {
-    return Academic(
-      name: map['name'],
-      major: map['major'],
-      year: map['year'],
-      month: map['month'],
-      isJoin: map['isJoin'],
-    );
-  }
+  /// JSON から `Academic` インスタンスを生成
+  factory Academic.fromJson(Map<String, dynamic> json) => _$AcademicFromJson(json);
 }

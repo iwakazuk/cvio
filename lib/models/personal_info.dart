@@ -1,12 +1,15 @@
-import 'package:isar/isar.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'personal_info.freezed.dart';
+part 'personal_info.g.dart';
 
 /// 個人情報
 @freezed
-class PersonalInfo with _$PersonalInfo {
+abstract class PersonalInfo with _$PersonalInfo {
   const factory PersonalInfo({
+    /// 証明写真用画像ファイルのパス
+    String? image,
+
     /// 氏
     String? lastName,
 
@@ -82,68 +85,7 @@ class PersonalInfo with _$PersonalInfo {
     /// 緊急住所ふりがな - nullable
     String? emergencyAddressKana,
   }) = _PersonalInfo;
-}
 
-extension PersonalInfoExtension on PersonalInfo {
-  /// DB 等に保存する際に Map<String, dynamic> に変換する
-  Map<String, dynamic> toMap() {
-    return {
-      'lastName': lastName,
-      'firstName': firstName,
-      'lastNameKana': lastNameKana,
-      'firstNameKana': firstNameKana,
-      'email': email,
-      'emergencyEmail': emergencyEmail,
-      'phone': phone,
-      'emergencyPhone': emergencyPhone,
-      'birthYear': birthYear,
-      'birthMonth': birthMonth,
-      'birthDay': birthDay,
-      'age': age,
-      'gender': gender,
-      'postalCode': postalCode,
-      'addressPrefecture': addressPrefecture,
-      'addressCity': addressCity,
-      'addressStreet': addressStreet,
-      'addressBuilding': addressBuilding,
-      'addressKana': addressKana,
-      'emergencyPostalCode': emergencyPostalCode,
-      'emergencyAddressPrefecture': emergencyAddressPrefecture,
-      'emergencyAddressCity': emergencyAddressCity,
-      'emergencyAddressStreet': emergencyAddressStreet,
-      'emergencyAddressBuilding': emergencyAddressBuilding,
-      'emergencyAddressKana': emergencyAddressKana,
-    };
-  }
-
-  /// DB から読み込んだ Map<String, dynamic> から PersonalInfo を生成
-  static PersonalInfo fromMap(Map<String, dynamic> map) {
-    return PersonalInfo(
-      lastName: map['lastName'],
-      firstName: map['firstName'],
-      lastNameKana: map['lastNameKana'],
-      firstNameKana: map['firstNameKana'],
-      email: map['email'],
-      emergencyEmail: map['emergencyEmail'],
-      phone: map['phone'],
-      emergencyPhone: map['emergencyPhone'],
-      birthYear: map['birthYear'],
-      birthMonth: map['birthMonth'],
-      birthDay: map['birthDay'],
-      age: map['age'],
-      gender: map['gender'],
-      postalCode: map['postalCode'],
-      addressPrefecture: map['addressPrefecture'],
-      addressCity: map['addressCity'],
-      addressStreet: map['addressStreet'],
-      addressBuilding: map['addressBuilding'],
-      addressKana: map['addressKana'],
-      emergencyPostalCode: map['emergencyPostalCode'],
-      emergencyAddressPrefecture: map['emergencyAddressPrefecture'],
-      emergencyAddressCity: map['emergencyAddressCity'],
-      emergencyAddressStreet: map['emergencyAddressStreet'],
-      emergencyAddressBuilding: map['emergencyAddressBuilding'],
-      emergencyAddressKana: map['emergencyAddressKana'],
-    );
-  }
+  /// JSON から `PersonalInfo` インスタンスを生成
+  factory PersonalInfo.fromJson(Map<String, dynamic> json) => _$PersonalInfoFromJson(json);
 }

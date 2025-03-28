@@ -1,3 +1,4 @@
+// dart format width=80
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
@@ -9,109 +10,74 @@ part of 'academic.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// dart format off
 T _$identity<T>(T value) => value;
-
-final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 /// @nodoc
 mixin _$Academic {
   /// 学校名
-  String? get name => throw _privateConstructorUsedError;
+  String? get name;
 
   /// 専攻
-  String? get major => throw _privateConstructorUsedError;
+  String? get major;
 
   /// 入学時期 / 卒業時期（年）
-  String? get year => throw _privateConstructorUsedError;
+  String? get year;
 
   /// 入学時期 / 卒業時期（月）
-  String? get month => throw _privateConstructorUsedError;
+  String? get month;
 
   /// 入学 or 卒業
-  bool? get isJoin => throw _privateConstructorUsedError;
+  bool? get isJoin;
 
   /// Create a copy of Academic
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
-  $AcademicCopyWith<Academic> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class $AcademicCopyWith<$Res> {
-  factory $AcademicCopyWith(Academic value, $Res Function(Academic) then) =
-      _$AcademicCopyWithImpl<$Res, Academic>;
-  @useResult
-  $Res call(
-      {String? name, String? major, String? year, String? month, bool? isJoin});
-}
-
-/// @nodoc
-class _$AcademicCopyWithImpl<$Res, $Val extends Academic>
-    implements $AcademicCopyWith<$Res> {
-  _$AcademicCopyWithImpl(this._value, this._then);
-
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
-
-  /// Create a copy of Academic
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
+  $AcademicCopyWith<Academic> get copyWith =>
+      _$AcademicCopyWithImpl<Academic>(this as Academic, _$identity);
+
+  /// Serializes this Academic to a JSON map.
+  Map<String, dynamic> toJson();
+
   @override
-  $Res call({
-    Object? name = freezed,
-    Object? major = freezed,
-    Object? year = freezed,
-    Object? month = freezed,
-    Object? isJoin = freezed,
-  }) {
-    return _then(_value.copyWith(
-      name: freezed == name
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
-              as String?,
-      major: freezed == major
-          ? _value.major
-          : major // ignore: cast_nullable_to_non_nullable
-              as String?,
-      year: freezed == year
-          ? _value.year
-          : year // ignore: cast_nullable_to_non_nullable
-              as String?,
-      month: freezed == month
-          ? _value.month
-          : month // ignore: cast_nullable_to_non_nullable
-              as String?,
-      isJoin: freezed == isJoin
-          ? _value.isJoin
-          : isJoin // ignore: cast_nullable_to_non_nullable
-              as bool?,
-    ) as $Val);
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is Academic &&
+            (identical(other.name, name) || other.name == name) &&
+            (identical(other.major, major) || other.major == major) &&
+            (identical(other.year, year) || other.year == year) &&
+            (identical(other.month, month) || other.month == month) &&
+            (identical(other.isJoin, isJoin) || other.isJoin == isJoin));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode =>
+      Object.hash(runtimeType, name, major, year, month, isJoin);
+
+  @override
+  String toString() {
+    return 'Academic(name: $name, major: $major, year: $year, month: $month, isJoin: $isJoin)';
   }
 }
 
 /// @nodoc
-abstract class _$$AcademicImplCopyWith<$Res>
-    implements $AcademicCopyWith<$Res> {
-  factory _$$AcademicImplCopyWith(
-          _$AcademicImpl value, $Res Function(_$AcademicImpl) then) =
-      __$$AcademicImplCopyWithImpl<$Res>;
-  @override
+abstract mixin class $AcademicCopyWith<$Res> {
+  factory $AcademicCopyWith(Academic value, $Res Function(Academic) _then) =
+      _$AcademicCopyWithImpl;
   @useResult
   $Res call(
       {String? name, String? major, String? year, String? month, bool? isJoin});
 }
 
 /// @nodoc
-class __$$AcademicImplCopyWithImpl<$Res>
-    extends _$AcademicCopyWithImpl<$Res, _$AcademicImpl>
-    implements _$$AcademicImplCopyWith<$Res> {
-  __$$AcademicImplCopyWithImpl(
-      _$AcademicImpl _value, $Res Function(_$AcademicImpl) _then)
-      : super(_value, _then);
+class _$AcademicCopyWithImpl<$Res> implements $AcademicCopyWith<$Res> {
+  _$AcademicCopyWithImpl(this._self, this._then);
+
+  final Academic _self;
+  final $Res Function(Academic) _then;
 
   /// Create a copy of Academic
   /// with the given fields replaced by the non-null parameter values.
@@ -124,25 +90,25 @@ class __$$AcademicImplCopyWithImpl<$Res>
     Object? month = freezed,
     Object? isJoin = freezed,
   }) {
-    return _then(_$AcademicImpl(
+    return _then(_self.copyWith(
       name: freezed == name
-          ? _value.name
+          ? _self.name
           : name // ignore: cast_nullable_to_non_nullable
               as String?,
       major: freezed == major
-          ? _value.major
+          ? _self.major
           : major // ignore: cast_nullable_to_non_nullable
               as String?,
       year: freezed == year
-          ? _value.year
+          ? _self.year
           : year // ignore: cast_nullable_to_non_nullable
               as String?,
       month: freezed == month
-          ? _value.month
+          ? _self.month
           : month // ignore: cast_nullable_to_non_nullable
               as String?,
       isJoin: freezed == isJoin
-          ? _value.isJoin
+          ? _self.isJoin
           : isJoin // ignore: cast_nullable_to_non_nullable
               as bool?,
     ));
@@ -150,10 +116,11 @@ class __$$AcademicImplCopyWithImpl<$Res>
 }
 
 /// @nodoc
-
-class _$AcademicImpl implements _Academic {
-  const _$AcademicImpl(
-      {this.name, this.major, this.year, this.month, this.isJoin});
+@JsonSerializable()
+class _Academic implements Academic {
+  const _Academic({this.name, this.major, this.year, this.month, this.isJoin});
+  factory _Academic.fromJson(Map<String, dynamic> json) =>
+      _$AcademicFromJson(json);
 
   /// 学校名
   @override
@@ -175,16 +142,26 @@ class _$AcademicImpl implements _Academic {
   @override
   final bool? isJoin;
 
+  /// Create a copy of Academic
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  String toString() {
-    return 'Academic(name: $name, major: $major, year: $year, month: $month, isJoin: $isJoin)';
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  _$AcademicCopyWith<_Academic> get copyWith =>
+      __$AcademicCopyWithImpl<_Academic>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$AcademicToJson(
+      this,
+    );
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$AcademicImpl &&
+            other is _Academic &&
             (identical(other.name, name) || other.name == name) &&
             (identical(other.major, major) || other.major == major) &&
             (identical(other.year, year) || other.year == year) &&
@@ -192,51 +169,69 @@ class _$AcademicImpl implements _Academic {
             (identical(other.isJoin, isJoin) || other.isJoin == isJoin));
   }
 
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode =>
       Object.hash(runtimeType, name, major, year, month, isJoin);
 
+  @override
+  String toString() {
+    return 'Academic(name: $name, major: $major, year: $year, month: $month, isJoin: $isJoin)';
+  }
+}
+
+/// @nodoc
+abstract mixin class _$AcademicCopyWith<$Res>
+    implements $AcademicCopyWith<$Res> {
+  factory _$AcademicCopyWith(_Academic value, $Res Function(_Academic) _then) =
+      __$AcademicCopyWithImpl;
+  @override
+  @useResult
+  $Res call(
+      {String? name, String? major, String? year, String? month, bool? isJoin});
+}
+
+/// @nodoc
+class __$AcademicCopyWithImpl<$Res> implements _$AcademicCopyWith<$Res> {
+  __$AcademicCopyWithImpl(this._self, this._then);
+
+  final _Academic _self;
+  final $Res Function(_Academic) _then;
+
   /// Create a copy of Academic
   /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
-  _$$AcademicImplCopyWith<_$AcademicImpl> get copyWith =>
-      __$$AcademicImplCopyWithImpl<_$AcademicImpl>(this, _$identity);
+  $Res call({
+    Object? name = freezed,
+    Object? major = freezed,
+    Object? year = freezed,
+    Object? month = freezed,
+    Object? isJoin = freezed,
+  }) {
+    return _then(_Academic(
+      name: freezed == name
+          ? _self.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String?,
+      major: freezed == major
+          ? _self.major
+          : major // ignore: cast_nullable_to_non_nullable
+              as String?,
+      year: freezed == year
+          ? _self.year
+          : year // ignore: cast_nullable_to_non_nullable
+              as String?,
+      month: freezed == month
+          ? _self.month
+          : month // ignore: cast_nullable_to_non_nullable
+              as String?,
+      isJoin: freezed == isJoin
+          ? _self.isJoin
+          : isJoin // ignore: cast_nullable_to_non_nullable
+              as bool?,
+    ));
+  }
 }
 
-abstract class _Academic implements Academic {
-  const factory _Academic(
-      {final String? name,
-      final String? major,
-      final String? year,
-      final String? month,
-      final bool? isJoin}) = _$AcademicImpl;
-
-  /// 学校名
-  @override
-  String? get name;
-
-  /// 専攻
-  @override
-  String? get major;
-
-  /// 入学時期 / 卒業時期（年）
-  @override
-  String? get year;
-
-  /// 入学時期 / 卒業時期（月）
-  @override
-  String? get month;
-
-  /// 入学 or 卒業
-  @override
-  bool? get isJoin;
-
-  /// Create a copy of Academic
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$AcademicImplCopyWith<_$AcademicImpl> get copyWith =>
-      throw _privateConstructorUsedError;
-}
+// dart format on
