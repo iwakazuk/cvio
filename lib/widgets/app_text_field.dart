@@ -95,6 +95,9 @@ class _AppTextFieldState extends State<AppTextField> {
                     : TextInputAction.done,
                 keyboardType: widget.keyboardType,
                 onChanged: widget.onChanged,
+                style: TextStyle(
+                  color: Colors.white,
+                ),
               ),
             ),
             AppSpace.wM,

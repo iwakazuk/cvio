@@ -37,6 +37,8 @@ class HistoryScreen extends HookConsumerWidget {
         ),
         actions: [
           InkWell(
+            splashColor: Colors.transparent,
+            highlightColor: Colors.transparent,
             onTap: () async {
               final result = await historyNotifier.saveToDb();
               if (result) {

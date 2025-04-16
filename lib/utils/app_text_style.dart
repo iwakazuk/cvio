@@ -25,7 +25,7 @@ class AppTextStyle {
   static final TextStyle saveButton = base.copyWith(
     fontSize: 16,
     fontWeight: FontWeight.bold,
-    color: Colors.white,
+    color: Colors.deepOrange,
   );
 
   static final TextStyle sectionTitle = base.copyWith(
@@ -61,5 +61,10 @@ class AppTextStyle {
   static final TextStyle bodyWhite = base.copyWith(
     fontSize: 12,
     color: Colors.white,
+  );
+
+  static final TextStyle bodyButton = base.copyWith(
+    fontSize: 14,
+    color: Colors.deepOrange,
   );
 }

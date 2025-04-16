@@ -1,12 +1,12 @@
 import 'dart:io';
 
 import 'package:cvio/provider/personal_info_provider.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:file_picker/file_picker.dart';
-import 'package:path_provider/path_provider.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:path/path.dart' as p;
 
@@ -15,6 +15,7 @@ import '../utils/app_space.dart';
 import '../utils/app_text_style.dart';
 import '../widgets/app_border.dart';
 import '../widgets/app_container.dart';
+import '../widgets/app_date_picker.dart';
 import '../widgets/app_drop_down.dart';
 import '../widgets/app_text_field.dart';
 
@@ -46,6 +47,8 @@ class PersonalInfoScreen extends HookConsumerWidget {
         ),
         actions: [
           InkWell(
+            splashColor: Colors.transparent,
+            highlightColor: Colors.transparent,
             onTap: () async {
               ref.read(personalInfoErrorMessageProvider.notifier).reset();
               final result = await personalInfoNotifier.saveToDb();
@@ -157,48 +160,20 @@ class PersonalInfoScreen extends HookConsumerWidget {
               ),
             ),
 
-            // 生年月日
             AppContainer(
-              title: '生年月日',
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  AppDropdown(
-                    label: '年',
-                    initialValue: personalInfo.birthYear,
-                    errorText: errorMessage.birthYear,
-                    values: [
-                      for (var i = 1900; i <= 2025; i++) i.toString(),
-                    ],
-                    onChanged: (value) {
-                      personalInfoNotifier.updateBirthYear(value!);
-                    },
-                  ),
-                  AppBorder(),
-                  AppDropdown(
-                    label: '月',
-                    initialValue: personalInfo.birthMonth,
-                    errorText: errorMessage.birthMonth,
-                    values: [
-                      for (var i = 1; i <= 12; i++) i.toString(),
-                    ],
-                    onChanged: (value) {
-                      personalInfoNotifier.updateBirthMonth(value!);
-                    },
-                  ),
-                  AppBorder(),
-                  AppDropdown(
-                    label: '日',
-                    initialValue: personalInfo.birthDay,
-                    errorText: errorMessage.birthDay,
-                    values: [
-                      for (var i = 1; i <= 31; i++) i.toString(),
-                    ],
-                    onChanged: (value) {
-                      personalInfoNotifier.updateBirthDay(value!);
-                    },
-                  ),
-                ],
+              title: "生年月日",
+              child: AppDatePicker(
+                initialDate: personalInfo.birthday == null
+                    ? null
+                    : DateTime.parse(personalInfo.birthday!),
+                label: '生年月日',
+                firstDate: DateTime(1990),
+                lastDate: DateTime.now().add(const Duration(days: 365)),
+                onDateSelected: (value) {
+                  personalInfoNotifier.updateBirthDay(
+                    value.toString(),
+                  );
+                },
               ),
             ),
 
@@ -207,7 +182,7 @@ class PersonalInfoScreen extends HookConsumerWidget {
               title: '性別',
               child: AppDropdown(
                 label: '性別',
-                initialValue: personalInfo.gender,
+                initialValue: personalInfo.gender ?? '選択しない',
                 values: ['男性', '女性', '選択しない'],
                 onChanged: (value) {
                   personalInfoNotifier.updateGender(value!);
@@ -292,9 +267,7 @@ class PersonalInfoScreen extends HookConsumerWidget {
                   AppBorder(),
                   AppTextField(
                     label: '建物名',
-                    initialValue: personalInfo.addressBuilding,
                     hintText: '任意',
-                    errorText: errorMessage.addressBuilding,
                     onChanged: (value) {
                       personalInfoNotifier.updateAddressBuilding(value);
                     },
@@ -329,7 +302,7 @@ class PersonalInfoScreen extends HookConsumerWidget {
                   ),
                   AppBorder(),
                   AppTextField(
-                    label: 'Email',
+                    label: 'E-mail',
                     initialValue: personalInfo.emergencyEmail,
                     hintText: '任意',
                     errorText: errorMessage.emergencyEmail,

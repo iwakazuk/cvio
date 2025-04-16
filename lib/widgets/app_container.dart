@@ -19,14 +19,16 @@ class AppContainer extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Padding(
-            padding: AppSpace.plM,
-            child: Text(
-              title,
-              style: AppTextStyle.sectionTitle,
+          if (title.isNotEmpty) ...[
+            Padding(
+              padding: AppSpace.plM,
+              child: Text(
+                title,
+                style: AppTextStyle.sectionTitle,
+              ),
             ),
-          ),
-          AppSpace.hS,
+            AppSpace.hS,
+          ],
           Container(
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(12),

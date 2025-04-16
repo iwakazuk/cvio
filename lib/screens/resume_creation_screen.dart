@@ -1,26 +1,33 @@
+import 'dart:io';
+
 import 'package:custom_sliding_segmented_control/custom_sliding_segmented_control.dart';
 import 'package:cvio/widgets/app_container.dart';
 import 'package:cvio/widgets/primary_button.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:go_router/go_router.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:uuid/uuid.dart';
+import 'package:intl/intl.dart';
 
+import '../models/resume.dart';
+import '../provider/resume_provider.dart';
 import '../utils/app_space.dart';
 import '../utils/app_text_style.dart';
+import '../utils/helper.dart';
+import '../widgets/app_date_picker.dart';
 import '../widgets/app_text_field.dart';
 
-class ResumeCreationScreen extends StatefulWidget {
+class ResumeCreationScreen extends HookConsumerWidget {
   @override
-  _ResumeCreationScreenState createState() => _ResumeCreationScreenState();
-}
+  Widget build(BuildContext context, WidgetRef ref) {
+    final identifier = useMemoized(() => Uuid().v4());
+    final providerKey = useState(identifier);
 
-class _ResumeCreationScreenState extends State<ResumeCreationScreen> {
-  final _formKey = GlobalKey<FormState>();
-  String _selectedType = '履歴書';
-  String? _title;
-  String? _content;
+    final resume = ref.watch(resumeProvider(providerKey.value));
+    final resumeNotifier = ref.read(resumeProvider(providerKey.value).notifier);
 
-  @override
-  Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text('履歴書作成', style: AppTextStyle.header),
@@ -30,25 +37,6 @@ class _ResumeCreationScreenState extends State<ResumeCreationScreen> {
             Navigator.pop(context);
           },
         ),
-        actions: [
-          InkWell(
-            onTap: () {
-              ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(content: Text('学歴・職歴を保存しました')),
-              );
-            },
-            borderRadius: BorderRadius.circular(100),
-            child: Container(
-              padding: AppSpace.pxL,
-              child: Center(
-                child: Text(
-                  '保存',
-                  style: AppTextStyle.saveButton,
-                ),
-              ),
-            ),
-          ),
-        ],
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -61,21 +49,19 @@ class _ResumeCreationScreenState extends State<ResumeCreationScreen> {
                 children: [
                   Expanded(
                     child: CustomSlidingSegmentedControl<String>(
+                      height: 30,
                       children: {
                         '履歴書': const Padding(
-                          padding: EdgeInsets.all(5.0),
+                          padding: AppSpace.pXS,
                           child: Text('履歴書'),
                         ),
                         '職務経歴書': const Padding(
-                          padding: EdgeInsets.all(5.0),
+                          padding: AppSpace.pXS,
                           child: Text('職務経歴書'),
                         ),
                       },
                       onValueChanged: (value) {
-                        setState(() {
-                          _selectedType = value;
-                          // _content = null; // 必要に応じて
-                        });
+                        resumeNotifier.onChangeType(value);
                       },
                       decoration: BoxDecoration(
                         color: Theme.of(context).focusColor,
@@ -92,45 +78,100 @@ class _ResumeCreationScreenState extends State<ResumeCreationScreen> {
               ),
             ),
             AppContainer(
-              title: "タイトル",
-              child: AppTextField(
-                hintText: 'タイトルを入力してください\n(例: 〇〇株式会社 〇月〇日)',
-                keyboardType: TextInputType.multiline,
-                onChanged: (value) {
-                  _title = value;
+              title: "",
+              child: AppDatePicker(
+                label: "作成日",
+                initialDate: DateTime.now(),
+                firstDate: DateTime(1990),
+                lastDate: DateTime.now().add(const Duration(days: 365)),
+                onDateSelected: (dateTime) {
+                  resumeNotifier.updateCreateDate(dateTime);
                 },
               ),
             ),
             AppContainer(
-              title: _selectedType == '履歴書' ? '志望動機' : '自己PR',
+              title: "タイトル",
               child: AppTextField(
-                hintText:
-                    _selectedType == '履歴書' ? '志望動機を入力してください' : '自己PRを入力してください',
+                hintText: 'タイトルを入力してください\n(例: 〇〇株式会社 履歴書)',
                 keyboardType: TextInputType.multiline,
                 onChanged: (value) {
-                  _content = value;
+                  final formatted = value.replaceAll('\n', '');
+                  resumeNotifier.updateTitle(formatted);
                 },
               ),
             ),
+            if (resume.isCareer == true)
+              AppContainer(
+                title: "職務概要",
+                child: AppTextField(
+                  hintText:
+                      '(例: 大学卒業後、株式会社XXに入社。XX事業部・XX職として配属されました。主にXXを担当し、XXに関する業務やXXに携わってきました。)\n',
+                  keyboardType: TextInputType.multiline,
+                  onChanged: (value) {
+                    resumeNotifier.updateSubContent(value);
+                  },
+                ),
+              ),
+            AppContainer(
+              title: resume.isCareer == true ? '志望動機' : '自己PR',
+              child: AppTextField(
+                hintText: resume.isCareer == true
+                    ? '志望動機を入力してください\n\n\n\n'
+                    : '自己PRを入力してください\n\n\n\n',
+                keyboardType: TextInputType.multiline,
+                onChanged: (value) {
+                  resumeNotifier.updateContent(value);
+                },
+              ),
+            ),
+            if (resume.isCareer != true)
+              AppContainer(
+                title: "本人希望欄",
+                child: AppTextField(
+                  hintText: '(例: 連絡可能な時間帯、帰社時間の希望、希望職種、希望年収 etc.)\n\n\n',
+                  keyboardType: TextInputType.multiline,
+                  onChanged: (value) {
+                    resumeNotifier.updateSubContent(value);
+                  },
+                ),
+              ),
+            AppSpace.hM,
+            Center(
+              child: PrimaryButton(
+                label: '作成',
+                onPressed: () {
+                  final message = resume.isCareer == true
+                      ? '職務経歴書'
+                      : '履歴書';
+                  resumeNotifier.saveToDb(resume).then((success) async {
+                    if (success) {
+                      try {
+                        // 作成失敗時の処理
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(content: Text('$messageの作成に成功しました')),
+                        );
+
+                        // PDFファイルプレビュー画面へ遷移
+                        context.push('/preview', extra: providerKey.value);
+                      } catch (e) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(content: Text('PDFの作成に失敗しました')),
+                        );
+                      }
+                    } else {
+                      // 作成失敗時の処理
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(content: Text('$messageの作成に失敗しました')),
+                      );
+                    }
+                  });
+                },
+              ),
+            ),
+            AppSpace.hXL,
           ],
         ),
       ),
     );
-  }
-
-  void _createResume() {
-    if (_formKey.currentState?.validate() ?? false) {
-      // 入力内容を保存または次の処理
-      final title = _title;
-      final content = _content;
-
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text('「$title」が作成されました'),
-        ),
-      );
-
-      // 必要なら次の画面へ遷移
-    }
   }
 }

@@ -33,23 +33,11 @@ mixin _$PersonalInfo {
   /// メールアドレス
   String? get email;
 
-  /// 緊急メールアドレス
-  String? get emergencyEmail;
-
   /// 電話番号
   String? get phone;
 
-  /// 緊急電話番号
-  String? get emergencyPhone;
-
-  /// 生年月日1 (年)
-  String? get birthYear;
-
-  /// 生年月日2 (月)
-  String? get birthMonth;
-
-  /// 生年月日3 (日)
-  String? get birthDay;
+  /// 生年月日
+  String? get birthday;
 
   /// 年齢
   String? get age;
@@ -75,22 +63,28 @@ mixin _$PersonalInfo {
   /// 住所ふりがな
   String? get addressKana;
 
-  /// 緊急郵便番号 - nullable
+  /// 緊急メールアドレス
+  String? get emergencyEmail;
+
+  /// 緊急電話番号
+  String? get emergencyPhone;
+
+  /// 緊急郵便番号
   String? get emergencyPostalCode;
 
-  /// 緊急住所(都道府県) - nullable
+  /// 緊急住所(都道府県)
   String? get emergencyAddressPrefecture;
 
-  /// 緊急住所(市区町村) - nullable
+  /// 緊急住所(市区町村)
   String? get emergencyAddressCity;
 
-  /// 緊急住所(番地) - nullable
+  /// 緊急住所(番地)
   String? get emergencyAddressStreet;
 
-  /// 緊急住所(マンション・建物名) - nullable
+  /// 緊急住所(マンション・建物名)
   String? get emergencyAddressBuilding;
 
-  /// 緊急住所ふりがな - nullable
+  /// 緊急住所ふりがな
   String? get emergencyAddressKana;
 
   /// Create a copy of PersonalInfo
@@ -119,17 +113,9 @@ mixin _$PersonalInfo {
             (identical(other.firstNameKana, firstNameKana) ||
                 other.firstNameKana == firstNameKana) &&
             (identical(other.email, email) || other.email == email) &&
-            (identical(other.emergencyEmail, emergencyEmail) ||
-                other.emergencyEmail == emergencyEmail) &&
             (identical(other.phone, phone) || other.phone == phone) &&
-            (identical(other.emergencyPhone, emergencyPhone) ||
-                other.emergencyPhone == emergencyPhone) &&
-            (identical(other.birthYear, birthYear) ||
-                other.birthYear == birthYear) &&
-            (identical(other.birthMonth, birthMonth) ||
-                other.birthMonth == birthMonth) &&
-            (identical(other.birthDay, birthDay) ||
-                other.birthDay == birthDay) &&
+            (identical(other.birthday, birthday) ||
+                other.birthday == birthday) &&
             (identical(other.age, age) || other.age == age) &&
             (identical(other.gender, gender) || other.gender == gender) &&
             (identical(other.postalCode, postalCode) ||
@@ -144,6 +130,10 @@ mixin _$PersonalInfo {
                 other.addressBuilding == addressBuilding) &&
             (identical(other.addressKana, addressKana) ||
                 other.addressKana == addressKana) &&
+            (identical(other.emergencyEmail, emergencyEmail) ||
+                other.emergencyEmail == emergencyEmail) &&
+            (identical(other.emergencyPhone, emergencyPhone) ||
+                other.emergencyPhone == emergencyPhone) &&
             (identical(other.emergencyPostalCode, emergencyPostalCode) ||
                 other.emergencyPostalCode == emergencyPostalCode) &&
             (identical(other.emergencyAddressPrefecture,
@@ -171,12 +161,8 @@ mixin _$PersonalInfo {
         lastNameKana,
         firstNameKana,
         email,
-        emergencyEmail,
         phone,
-        emergencyPhone,
-        birthYear,
-        birthMonth,
-        birthDay,
+        birthday,
         age,
         gender,
         postalCode,
@@ -185,6 +171,8 @@ mixin _$PersonalInfo {
         addressStreet,
         addressBuilding,
         addressKana,
+        emergencyEmail,
+        emergencyPhone,
         emergencyPostalCode,
         emergencyAddressPrefecture,
         emergencyAddressCity,
@@ -195,7 +183,7 @@ mixin _$PersonalInfo {
 
   @override
   String toString() {
-    return 'PersonalInfo(image: $image, lastName: $lastName, firstName: $firstName, lastNameKana: $lastNameKana, firstNameKana: $firstNameKana, email: $email, emergencyEmail: $emergencyEmail, phone: $phone, emergencyPhone: $emergencyPhone, birthYear: $birthYear, birthMonth: $birthMonth, birthDay: $birthDay, age: $age, gender: $gender, postalCode: $postalCode, addressPrefecture: $addressPrefecture, addressCity: $addressCity, addressStreet: $addressStreet, addressBuilding: $addressBuilding, addressKana: $addressKana, emergencyPostalCode: $emergencyPostalCode, emergencyAddressPrefecture: $emergencyAddressPrefecture, emergencyAddressCity: $emergencyAddressCity, emergencyAddressStreet: $emergencyAddressStreet, emergencyAddressBuilding: $emergencyAddressBuilding, emergencyAddressKana: $emergencyAddressKana)';
+    return 'PersonalInfo(image: $image, lastName: $lastName, firstName: $firstName, lastNameKana: $lastNameKana, firstNameKana: $firstNameKana, email: $email, phone: $phone, birthday: $birthday, age: $age, gender: $gender, postalCode: $postalCode, addressPrefecture: $addressPrefecture, addressCity: $addressCity, addressStreet: $addressStreet, addressBuilding: $addressBuilding, addressKana: $addressKana, emergencyEmail: $emergencyEmail, emergencyPhone: $emergencyPhone, emergencyPostalCode: $emergencyPostalCode, emergencyAddressPrefecture: $emergencyAddressPrefecture, emergencyAddressCity: $emergencyAddressCity, emergencyAddressStreet: $emergencyAddressStreet, emergencyAddressBuilding: $emergencyAddressBuilding, emergencyAddressKana: $emergencyAddressKana)';
   }
 }
 
@@ -212,12 +200,8 @@ abstract mixin class $PersonalInfoCopyWith<$Res> {
       String? lastNameKana,
       String? firstNameKana,
       String? email,
-      String? emergencyEmail,
       String? phone,
-      String? emergencyPhone,
-      String? birthYear,
-      String? birthMonth,
-      String? birthDay,
+      String? birthday,
       String? age,
       String? gender,
       String? postalCode,
@@ -226,6 +210,8 @@ abstract mixin class $PersonalInfoCopyWith<$Res> {
       String? addressStreet,
       String? addressBuilding,
       String? addressKana,
+      String? emergencyEmail,
+      String? emergencyPhone,
       String? emergencyPostalCode,
       String? emergencyAddressPrefecture,
       String? emergencyAddressCity,
@@ -252,12 +238,8 @@ class _$PersonalInfoCopyWithImpl<$Res> implements $PersonalInfoCopyWith<$Res> {
     Object? lastNameKana = freezed,
     Object? firstNameKana = freezed,
     Object? email = freezed,
-    Object? emergencyEmail = freezed,
     Object? phone = freezed,
-    Object? emergencyPhone = freezed,
-    Object? birthYear = freezed,
-    Object? birthMonth = freezed,
-    Object? birthDay = freezed,
+    Object? birthday = freezed,
     Object? age = freezed,
     Object? gender = freezed,
     Object? postalCode = freezed,
@@ -266,6 +248,8 @@ class _$PersonalInfoCopyWithImpl<$Res> implements $PersonalInfoCopyWith<$Res> {
     Object? addressStreet = freezed,
     Object? addressBuilding = freezed,
     Object? addressKana = freezed,
+    Object? emergencyEmail = freezed,
+    Object? emergencyPhone = freezed,
     Object? emergencyPostalCode = freezed,
     Object? emergencyAddressPrefecture = freezed,
     Object? emergencyAddressCity = freezed,
@@ -298,29 +282,13 @@ class _$PersonalInfoCopyWithImpl<$Res> implements $PersonalInfoCopyWith<$Res> {
           ? _self.email
           : email // ignore: cast_nullable_to_non_nullable
               as String?,
-      emergencyEmail: freezed == emergencyEmail
-          ? _self.emergencyEmail
-          : emergencyEmail // ignore: cast_nullable_to_non_nullable
-              as String?,
       phone: freezed == phone
           ? _self.phone
           : phone // ignore: cast_nullable_to_non_nullable
               as String?,
-      emergencyPhone: freezed == emergencyPhone
-          ? _self.emergencyPhone
-          : emergencyPhone // ignore: cast_nullable_to_non_nullable
-              as String?,
-      birthYear: freezed == birthYear
-          ? _self.birthYear
-          : birthYear // ignore: cast_nullable_to_non_nullable
-              as String?,
-      birthMonth: freezed == birthMonth
-          ? _self.birthMonth
-          : birthMonth // ignore: cast_nullable_to_non_nullable
-              as String?,
-      birthDay: freezed == birthDay
-          ? _self.birthDay
-          : birthDay // ignore: cast_nullable_to_non_nullable
+      birthday: freezed == birthday
+          ? _self.birthday
+          : birthday // ignore: cast_nullable_to_non_nullable
               as String?,
       age: freezed == age
           ? _self.age
@@ -353,6 +321,14 @@ class _$PersonalInfoCopyWithImpl<$Res> implements $PersonalInfoCopyWith<$Res> {
       addressKana: freezed == addressKana
           ? _self.addressKana
           : addressKana // ignore: cast_nullable_to_non_nullable
+              as String?,
+      emergencyEmail: freezed == emergencyEmail
+          ? _self.emergencyEmail
+          : emergencyEmail // ignore: cast_nullable_to_non_nullable
+              as String?,
+      emergencyPhone: freezed == emergencyPhone
+          ? _self.emergencyPhone
+          : emergencyPhone // ignore: cast_nullable_to_non_nullable
               as String?,
       emergencyPostalCode: freezed == emergencyPostalCode
           ? _self.emergencyPostalCode
@@ -392,12 +368,8 @@ class _PersonalInfo implements PersonalInfo {
       this.lastNameKana,
       this.firstNameKana,
       this.email,
-      this.emergencyEmail,
       this.phone,
-      this.emergencyPhone,
-      this.birthYear,
-      this.birthMonth,
-      this.birthDay,
+      this.birthday,
       this.age,
       this.gender,
       this.postalCode,
@@ -406,6 +378,8 @@ class _PersonalInfo implements PersonalInfo {
       this.addressStreet,
       this.addressBuilding,
       this.addressKana,
+      this.emergencyEmail,
+      this.emergencyPhone,
       this.emergencyPostalCode,
       this.emergencyAddressPrefecture,
       this.emergencyAddressCity,
@@ -439,29 +413,13 @@ class _PersonalInfo implements PersonalInfo {
   @override
   final String? email;
 
-  /// 緊急メールアドレス
-  @override
-  final String? emergencyEmail;
-
   /// 電話番号
   @override
   final String? phone;
 
-  /// 緊急電話番号
+  /// 生年月日
   @override
-  final String? emergencyPhone;
-
-  /// 生年月日1 (年)
-  @override
-  final String? birthYear;
-
-  /// 生年月日2 (月)
-  @override
-  final String? birthMonth;
-
-  /// 生年月日3 (日)
-  @override
-  final String? birthDay;
+  final String? birthday;
 
   /// 年齢
   @override
@@ -495,27 +453,35 @@ class _PersonalInfo implements PersonalInfo {
   @override
   final String? addressKana;
 
-  /// 緊急郵便番号 - nullable
+  /// 緊急メールアドレス
+  @override
+  final String? emergencyEmail;
+
+  /// 緊急電話番号
+  @override
+  final String? emergencyPhone;
+
+  /// 緊急郵便番号
   @override
   final String? emergencyPostalCode;
 
-  /// 緊急住所(都道府県) - nullable
+  /// 緊急住所(都道府県)
   @override
   final String? emergencyAddressPrefecture;
 
-  /// 緊急住所(市区町村) - nullable
+  /// 緊急住所(市区町村)
   @override
   final String? emergencyAddressCity;
 
-  /// 緊急住所(番地) - nullable
+  /// 緊急住所(番地)
   @override
   final String? emergencyAddressStreet;
 
-  /// 緊急住所(マンション・建物名) - nullable
+  /// 緊急住所(マンション・建物名)
   @override
   final String? emergencyAddressBuilding;
 
-  /// 緊急住所ふりがな - nullable
+  /// 緊急住所ふりがな
   @override
   final String? emergencyAddressKana;
 
@@ -549,17 +515,9 @@ class _PersonalInfo implements PersonalInfo {
             (identical(other.firstNameKana, firstNameKana) ||
                 other.firstNameKana == firstNameKana) &&
             (identical(other.email, email) || other.email == email) &&
-            (identical(other.emergencyEmail, emergencyEmail) ||
-                other.emergencyEmail == emergencyEmail) &&
             (identical(other.phone, phone) || other.phone == phone) &&
-            (identical(other.emergencyPhone, emergencyPhone) ||
-                other.emergencyPhone == emergencyPhone) &&
-            (identical(other.birthYear, birthYear) ||
-                other.birthYear == birthYear) &&
-            (identical(other.birthMonth, birthMonth) ||
-                other.birthMonth == birthMonth) &&
-            (identical(other.birthDay, birthDay) ||
-                other.birthDay == birthDay) &&
+            (identical(other.birthday, birthday) ||
+                other.birthday == birthday) &&
             (identical(other.age, age) || other.age == age) &&
             (identical(other.gender, gender) || other.gender == gender) &&
             (identical(other.postalCode, postalCode) ||
@@ -574,6 +532,10 @@ class _PersonalInfo implements PersonalInfo {
                 other.addressBuilding == addressBuilding) &&
             (identical(other.addressKana, addressKana) ||
                 other.addressKana == addressKana) &&
+            (identical(other.emergencyEmail, emergencyEmail) ||
+                other.emergencyEmail == emergencyEmail) &&
+            (identical(other.emergencyPhone, emergencyPhone) ||
+                other.emergencyPhone == emergencyPhone) &&
             (identical(other.emergencyPostalCode, emergencyPostalCode) ||
                 other.emergencyPostalCode == emergencyPostalCode) &&
             (identical(other.emergencyAddressPrefecture,
@@ -601,12 +563,8 @@ class _PersonalInfo implements PersonalInfo {
         lastNameKana,
         firstNameKana,
         email,
-        emergencyEmail,
         phone,
-        emergencyPhone,
-        birthYear,
-        birthMonth,
-        birthDay,
+        birthday,
         age,
         gender,
         postalCode,
@@ -615,6 +573,8 @@ class _PersonalInfo implements PersonalInfo {
         addressStreet,
         addressBuilding,
         addressKana,
+        emergencyEmail,
+        emergencyPhone,
         emergencyPostalCode,
         emergencyAddressPrefecture,
         emergencyAddressCity,
@@ -625,7 +585,7 @@ class _PersonalInfo implements PersonalInfo {
 
   @override
   String toString() {
-    return 'PersonalInfo(image: $image, lastName: $lastName, firstName: $firstName, lastNameKana: $lastNameKana, firstNameKana: $firstNameKana, email: $email, emergencyEmail: $emergencyEmail, phone: $phone, emergencyPhone: $emergencyPhone, birthYear: $birthYear, birthMonth: $birthMonth, birthDay: $birthDay, age: $age, gender: $gender, postalCode: $postalCode, addressPrefecture: $addressPrefecture, addressCity: $addressCity, addressStreet: $addressStreet, addressBuilding: $addressBuilding, addressKana: $addressKana, emergencyPostalCode: $emergencyPostalCode, emergencyAddressPrefecture: $emergencyAddressPrefecture, emergencyAddressCity: $emergencyAddressCity, emergencyAddressStreet: $emergencyAddressStreet, emergencyAddressBuilding: $emergencyAddressBuilding, emergencyAddressKana: $emergencyAddressKana)';
+    return 'PersonalInfo(image: $image, lastName: $lastName, firstName: $firstName, lastNameKana: $lastNameKana, firstNameKana: $firstNameKana, email: $email, phone: $phone, birthday: $birthday, age: $age, gender: $gender, postalCode: $postalCode, addressPrefecture: $addressPrefecture, addressCity: $addressCity, addressStreet: $addressStreet, addressBuilding: $addressBuilding, addressKana: $addressKana, emergencyEmail: $emergencyEmail, emergencyPhone: $emergencyPhone, emergencyPostalCode: $emergencyPostalCode, emergencyAddressPrefecture: $emergencyAddressPrefecture, emergencyAddressCity: $emergencyAddressCity, emergencyAddressStreet: $emergencyAddressStreet, emergencyAddressBuilding: $emergencyAddressBuilding, emergencyAddressKana: $emergencyAddressKana)';
   }
 }
 
@@ -644,12 +604,8 @@ abstract mixin class _$PersonalInfoCopyWith<$Res>
       String? lastNameKana,
       String? firstNameKana,
       String? email,
-      String? emergencyEmail,
       String? phone,
-      String? emergencyPhone,
-      String? birthYear,
-      String? birthMonth,
-      String? birthDay,
+      String? birthday,
       String? age,
       String? gender,
       String? postalCode,
@@ -658,6 +614,8 @@ abstract mixin class _$PersonalInfoCopyWith<$Res>
       String? addressStreet,
       String? addressBuilding,
       String? addressKana,
+      String? emergencyEmail,
+      String? emergencyPhone,
       String? emergencyPostalCode,
       String? emergencyAddressPrefecture,
       String? emergencyAddressCity,
@@ -685,12 +643,8 @@ class __$PersonalInfoCopyWithImpl<$Res>
     Object? lastNameKana = freezed,
     Object? firstNameKana = freezed,
     Object? email = freezed,
-    Object? emergencyEmail = freezed,
     Object? phone = freezed,
-    Object? emergencyPhone = freezed,
-    Object? birthYear = freezed,
-    Object? birthMonth = freezed,
-    Object? birthDay = freezed,
+    Object? birthday = freezed,
     Object? age = freezed,
     Object? gender = freezed,
     Object? postalCode = freezed,
@@ -699,6 +653,8 @@ class __$PersonalInfoCopyWithImpl<$Res>
     Object? addressStreet = freezed,
     Object? addressBuilding = freezed,
     Object? addressKana = freezed,
+    Object? emergencyEmail = freezed,
+    Object? emergencyPhone = freezed,
     Object? emergencyPostalCode = freezed,
     Object? emergencyAddressPrefecture = freezed,
     Object? emergencyAddressCity = freezed,
@@ -731,29 +687,13 @@ class __$PersonalInfoCopyWithImpl<$Res>
           ? _self.email
           : email // ignore: cast_nullable_to_non_nullable
               as String?,
-      emergencyEmail: freezed == emergencyEmail
-          ? _self.emergencyEmail
-          : emergencyEmail // ignore: cast_nullable_to_non_nullable
-              as String?,
       phone: freezed == phone
           ? _self.phone
           : phone // ignore: cast_nullable_to_non_nullable
               as String?,
-      emergencyPhone: freezed == emergencyPhone
-          ? _self.emergencyPhone
-          : emergencyPhone // ignore: cast_nullable_to_non_nullable
-              as String?,
-      birthYear: freezed == birthYear
-          ? _self.birthYear
-          : birthYear // ignore: cast_nullable_to_non_nullable
-              as String?,
-      birthMonth: freezed == birthMonth
-          ? _self.birthMonth
-          : birthMonth // ignore: cast_nullable_to_non_nullable
-              as String?,
-      birthDay: freezed == birthDay
-          ? _self.birthDay
-          : birthDay // ignore: cast_nullable_to_non_nullable
+      birthday: freezed == birthday
+          ? _self.birthday
+          : birthday // ignore: cast_nullable_to_non_nullable
               as String?,
       age: freezed == age
           ? _self.age
@@ -786,6 +726,14 @@ class __$PersonalInfoCopyWithImpl<$Res>
       addressKana: freezed == addressKana
           ? _self.addressKana
           : addressKana // ignore: cast_nullable_to_non_nullable
+              as String?,
+      emergencyEmail: freezed == emergencyEmail
+          ? _self.emergencyEmail
+          : emergencyEmail // ignore: cast_nullable_to_non_nullable
+              as String?,
+      emergencyPhone: freezed == emergencyPhone
+          ? _self.emergencyPhone
+          : emergencyPhone // ignore: cast_nullable_to_non_nullable
               as String?,
       emergencyPostalCode: freezed == emergencyPostalCode
           ? _self.emergencyPostalCode

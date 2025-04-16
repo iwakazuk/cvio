@@ -74,7 +74,7 @@ class _AppDropdownState extends State<AppDropdown> {
               child: Text(
                 widget.label,
                 style:
-                const TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+                    const TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
               ),
             ),
             Expanded(
@@ -90,7 +90,12 @@ class _AppDropdownState extends State<AppDropdown> {
                 items: widget.values.map<DropdownMenuItem<String>>((value) {
                   return DropdownMenuItem<String>(
                     value: value,
-                    child: Text(value),
+                    child: Text(
+                      value,
+                      style: const TextStyle(
+                        color: Colors.white,
+                      ),
+                    ),
                   );
                 }).toList(),
                 onChanged: (String? newValue) {

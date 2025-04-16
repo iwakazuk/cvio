@@ -27,92 +27,35 @@ class PersonalInfoNotifier extends StateNotifier<PersonalInfo> {
   /// DB に現在の state を保存
   /// return: 保存に成功した場合 true
   Future<bool> saveToDb() async {
-    bool isEmpty = false;
     bool hasError = false;
 
-    // 必須項目チェック
-    if(state.lastName == null || state.lastName!.isEmpty) {
-      isEmpty = true;
-      _errorNotifier.updateLastName('このフィールドは必須です。');
-    }
-    if(state.firstName == null || state.firstName!.isEmpty) {
-      isEmpty = true;
-      _errorNotifier.updateFirstName('このフィールドは必須です。');
-    }
-    if(state.lastNameKana == null || state.lastNameKana!.isEmpty) {
-      isEmpty = true;
-      _errorNotifier.updateLastNameKana('このフィールドは必須です。');
-    }
-    if(state.firstNameKana == null || state.firstNameKana!.isEmpty) {
-      isEmpty = true;
-      _errorNotifier.updateFirstNameKana('このフィールドは必須です。');
-    }
-    if(state.email == null || state.email!.isEmpty) {
-      isEmpty = true;
-      _errorNotifier.updateEmail('このフィールドは必須です。');
-    }
-    if(state.phone == null || state.phone!.isEmpty) {
-      isEmpty = true;
-      _errorNotifier.updatePhone('このフィールドは必須です。');
-    }
-    if(state.birthYear == null || state.birthYear!.isEmpty) {
-      isEmpty = true;
-      _errorNotifier.updateBirthYear('このフィールドは必須です。');
-    }
-    if(state.birthMonth == null || state.birthMonth!.isEmpty) {
-      isEmpty = true;
-      _errorNotifier.updateBirthMonth('このフィールドは必須です。');
-    }
-    if(state.birthDay == null || state.birthDay!.isEmpty) {
-      isEmpty = true;
-      _errorNotifier.updateBirthDay('このフィールドは必須です。');
-    }
-    if(state.postalCode == null || state.postalCode!.isEmpty) {
-      isEmpty = true;
-      _errorNotifier.updatePostalCode('このフィールドは必須です。');
-    }
-    if(state.addressPrefecture == null || state.addressPrefecture!.isEmpty) {
-      isEmpty = true;
-      _errorNotifier.updateAddressPrefecture('このフィールドは必須です。');
-    }
-    if(state.addressCity == null || state.addressCity!.isEmpty) {
-      isEmpty = true;
-      _errorNotifier.updateAddressCity('このフィールドは必須です。');
-    }
-    if(state.addressStreet == null || state.addressStreet!.isEmpty) {
-      isEmpty = true;
-      _errorNotifier.updateAddressStreet('このフィールドは必須です。');
-    }
-    if(state.addressKana == null || state.addressKana!.isEmpty) {
-      isEmpty = true;
-      _errorNotifier.updateAddressKana('このフィールドは必須です。');
-    }
-    if(isEmpty) {
-      return false;
-    }
-
     // バリデーション
-    if (!RegExp(r'^[ぁ-ん]+$').hasMatch(state.firstNameKana!)) {
+    if (state.firstNameKana != null &&
+        !RegExp(r'^[ぁ-ん]+$').hasMatch(state.firstNameKana!)) {
       hasError = true;
       _errorNotifier.updateFirstNameKana('ひらがなのみ入力可能です。');
     }
-    if (!RegExp(r'^[ぁ-ん]+$').hasMatch(state.lastNameKana!)) {
+    if (state.lastNameKana != null &&
+        !RegExp(r'^[ぁ-ん]+$').hasMatch(state.lastNameKana!)) {
       hasError = true;
       _errorNotifier.updateLastNameKana('ひらがなのみ入力可能です。');
     }
-    if (!RegExp(r'^[ぁ-ん]+$').hasMatch(state.addressKana!)) {
+    if (state.addressKana != null &&
+        !RegExp(r'^[ぁ-ん]+$').hasMatch(state.addressKana!)) {
       hasError = true;
       _errorNotifier.updateAddressKana('ひらがなのみ入力可能です。');
     }
-    if (!RegExp(r'^[^@]+@[^@]+\.[^@]+$').hasMatch(state.email!)) {
+    if (state.email != null &&
+        !RegExp(r'^[^@]+@[^@]+\.[^@]+$').hasMatch(state.email!)) {
       hasError = true;
       _errorNotifier.updateEmail('メールアドレスの形式が正しくありません。');
     }
-    if(!RegExp(r'^[0-9]+$').hasMatch(state.postalCode!)) {
+    if (state.postalCode != null &&
+        !RegExp(r'^[0-9]+$').hasMatch(state.postalCode!)) {
       hasError = true;
       _errorNotifier.updatePostalCode('数字のみ入力可能です。');
     }
-    if(hasError) {
+    if (hasError) {
       return false;
     }
 
@@ -165,24 +108,9 @@ class PersonalInfoNotifier extends StateNotifier<PersonalInfo> {
     state = state.copyWith(emergencyPhone: newEmergencyPhone);
   }
 
-  /// 生年月日1 (年)
-  void updateBirthYear(String newBirthYear) {
-    state = state.copyWith(birthYear: newBirthYear);
-  }
-
-  /// 生年月日2 (月)
-  void updateBirthMonth(String newBirthMonth) {
-    state = state.copyWith(birthMonth: newBirthMonth);
-  }
-
-  /// 生年月日3 (日)
+  /// 生年月日
   void updateBirthDay(String newBirthDay) {
-    state = state.copyWith(birthDay: newBirthDay);
-  }
-
-  /// 年齢
-  void updateAge(String newAge) {
-    state = state.copyWith(age: newAge);
+    state = state.copyWith(birthday: newBirthDay);
   }
 
   /// 性別

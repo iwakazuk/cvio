@@ -25,23 +25,11 @@ abstract class PersonalInfo with _$PersonalInfo {
     /// メールアドレス
     String? email,
 
-    /// 緊急メールアドレス
-    String? emergencyEmail,
-
     /// 電話番号
     String? phone,
 
-    /// 緊急電話番号
-    String? emergencyPhone,
-
-    /// 生年月日1 (年)
-    String? birthYear,
-
-    /// 生年月日2 (月)
-    String? birthMonth,
-
-    /// 生年月日3 (日)
-    String? birthDay,
+    /// 生年月日
+    String? birthday,
 
     /// 年齢
     String? age,
@@ -67,22 +55,28 @@ abstract class PersonalInfo with _$PersonalInfo {
     /// 住所ふりがな
     String? addressKana,
 
-    /// 緊急郵便番号 - nullable
+    /// 緊急メールアドレス
+    String? emergencyEmail,
+
+    /// 緊急電話番号
+    String? emergencyPhone,
+
+    /// 緊急郵便番号
     String? emergencyPostalCode,
 
-    /// 緊急住所(都道府県) - nullable
+    /// 緊急住所(都道府県)
     String? emergencyAddressPrefecture,
 
-    /// 緊急住所(市区町村) - nullable
+    /// 緊急住所(市区町村)
     String? emergencyAddressCity,
 
-    /// 緊急住所(番地) - nullable
+    /// 緊急住所(番地)
     String? emergencyAddressStreet,
 
-    /// 緊急住所(マンション・建物名) - nullable
+    /// 緊急住所(マンション・建物名)
     String? emergencyAddressBuilding,
 
-    /// 緊急住所ふりがな - nullable
+    /// 緊急住所ふりがな
     String? emergencyAddressKana,
   }) = _PersonalInfo;
 

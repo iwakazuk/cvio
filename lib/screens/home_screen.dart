@@ -10,16 +10,18 @@ class HomeScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text('ダッシュボード'),
-        leading: Builder(
-          builder: (context) => IconButton(
-            icon: Icon(Icons.menu),
-            onPressed: () {
-              Scaffold.of(context).openDrawer();
-            },
+        actions: [
+          Builder(
+            builder: (context) => IconButton(
+              icon: Icon(Icons.menu),
+              onPressed: () {
+                Scaffold.of(context).openEndDrawer();
+              },
+            ),
           ),
-        ),
+        ],
       ),
-      drawer: Drawer(
+      endDrawer: Drawer(
         child: ListView(
           padding: EdgeInsets.zero,
           children: [
@@ -50,21 +52,21 @@ class HomeScreen extends StatelessWidget {
               leading: Icon(Icons.article),
               title: Text('作成'),
               onTap: () {
-                context.push('/resume-creation-screen');
+                context.push('/resume-creation');
               },
             ),
             ListTile(
               leading: Icon(Icons.preview),
               title: Text('プレビュー'),
               onTap: () {
-                context.push('/preview-screen');
+                context.push('/preview');
               },
             ),
             ListTile(
               leading: Icon(Icons.folder),
               title: Text('履歴書一覧'),
               onTap: () {
-                context.push('/resume-list');
+                context.push('/resumes');
               },
             ),
             ListTile(
@@ -111,7 +113,7 @@ class HomeScreen extends StatelessWidget {
                     icon: Icons.create,
                     label: '作成',
                     onTap: () {
-                      context.push('/resume-creation-screen');
+                      context.push('/resume-creation');
                     },
                   ),
                   _buildFeatureCard(
@@ -119,7 +121,7 @@ class HomeScreen extends StatelessWidget {
                     icon: Icons.folder,
                     label: '一覧',
                     onTap: () {
-                      context.push('/resume-list');
+                      context.push('/resumes');
                     },
                   ),
                 ],

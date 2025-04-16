@@ -48,24 +48,9 @@ class PersonalInfoErrorMessageNotifier extends StateNotifier<PersonalInfo> {
     state = state.copyWith(emergencyPhone: newEmergencyPhone);
   }
 
-  /// 生年月日1 (年)
-  void updateBirthYear(String newBirthYear) {
-    state = state.copyWith(birthYear: newBirthYear);
-  }
-
-  /// 生年月日2 (月)
-  void updateBirthMonth(String newBirthMonth) {
-    state = state.copyWith(birthMonth: newBirthMonth);
-  }
-
-  /// 生年月日3 (日)
+  /// 生年月日
   void updateBirthDay(String newBirthDay) {
-    state = state.copyWith(birthDay: newBirthDay);
-  }
-
-  /// 年齢
-  void updateAge(String newAge) {
-    state = state.copyWith(age: newAge);
+    state = state.copyWith(birthday: newBirthDay);
   }
 
   /// 性別
