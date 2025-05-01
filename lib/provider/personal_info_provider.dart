@@ -17,11 +17,12 @@ class PersonalInfoNotifier extends StateNotifier<PersonalInfo> {
   ) : super(initial);
 
   /// DB からデータを読み込み、state を更新
-  Future<void> loadFromDb() async {
+  Future<PersonalInfo> loadFromDb() async {
     final loaded = await _repository.loadPersonalInfo();
     if (loaded != null) {
       state = loaded;
     }
+    return loaded ?? PersonalInfo();
   }
 
   /// DB に現在の state を保存

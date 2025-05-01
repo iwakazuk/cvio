@@ -3,15 +3,15 @@
   "packages": [
     {
       "name": "_fe_analyzer_shared",
-      "rootUri": "file:///Users/iwasaki/.pub-cache/hosted/pub.dev/_fe_analyzer_shared-80.0.0",
+      "rootUri": "file:///Users/iwasaki/.pub-cache/hosted/pub.dev/_fe_analyzer_shared-82.0.0",
       "packageUri": "lib/",
-      "languageVersion": "3.3"
+      "languageVersion": "3.5"
     },
     {
       "name": "analyzer",
-      "rootUri": "file:///Users/iwasaki/.pub-cache/hosted/pub.dev/analyzer-7.3.0",
+      "rootUri": "file:///Users/iwasaki/.pub-cache/hosted/pub.dev/analyzer-7.4.4",
       "packageUri": "lib/",
-      "languageVersion": "3.3"
+      "languageVersion": "3.5"
     },
     {
       "name": "animations",
@@ -21,7 +21,7 @@
     },
     {
       "name": "archive",
-      "rootUri": "file:///Users/iwasaki/.pub-cache/hosted/pub.dev/archive-4.0.5",
+      "rootUri": "file:///Users/iwasaki/.pub-cache/hosted/pub.dev/archive-4.0.7",
       "packageUri": "lib/",
       "languageVersion": "3.0"
     },
@@ -51,7 +51,7 @@
     },
     {
       "name": "bidi",
-      "rootUri": "file:///Users/iwasaki/.pub-cache/hosted/pub.dev/bidi-2.0.12",
+      "rootUri": "file:///Users/iwasaki/.pub-cache/hosted/pub.dev/bidi-2.0.13",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
@@ -255,13 +255,13 @@
     },
     {
       "name": "flutter_pdfview",
-      "rootUri": "file:///Users/iwasaki/.pub-cache/hosted/pub.dev/flutter_pdfview-1.4.0",
+      "rootUri": "file:///Users/iwasaki/.pub-cache/hosted/pub.dev/flutter_pdfview-1.4.0+1",
       "packageUri": "lib/",
       "languageVersion": "2.17"
     },
     {
       "name": "flutter_plugin_android_lifecycle",
-      "rootUri": "file:///Users/iwasaki/.pub-cache/hosted/pub.dev/flutter_plugin_android_lifecycle-2.0.27",
+      "rootUri": "file:///Users/iwasaki/.pub-cache/hosted/pub.dev/flutter_plugin_android_lifecycle-2.0.28",
       "packageUri": "lib/",
       "languageVersion": "3.6"
     },
@@ -273,19 +273,19 @@
     },
     {
       "name": "flutter_secure_storage",
-      "rootUri": "file:///Users/iwasaki/.pub-cache/hosted/pub.dev/flutter_secure_storage-7.0.1",
+      "rootUri": "file:///Users/iwasaki/.pub-cache/hosted/pub.dev/flutter_secure_storage-9.2.4",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
     {
       "name": "flutter_secure_storage_linux",
-      "rootUri": "file:///Users/iwasaki/.pub-cache/hosted/pub.dev/flutter_secure_storage_linux-1.2.2",
+      "rootUri": "file:///Users/iwasaki/.pub-cache/hosted/pub.dev/flutter_secure_storage_linux-1.2.3",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
     {
       "name": "flutter_secure_storage_macos",
-      "rootUri": "file:///Users/iwasaki/.pub-cache/hosted/pub.dev/flutter_secure_storage_macos-2.0.1",
+      "rootUri": "file:///Users/iwasaki/.pub-cache/hosted/pub.dev/flutter_secure_storage_macos-3.1.3",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
@@ -303,7 +303,7 @@
     },
     {
       "name": "flutter_secure_storage_windows",
-      "rootUri": "file:///Users/iwasaki/.pub-cache/hosted/pub.dev/flutter_secure_storage_windows-1.1.3",
+      "rootUri": "file:///Users/iwasaki/.pub-cache/hosted/pub.dev/flutter_secure_storage_windows-3.1.2",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
@@ -315,7 +315,7 @@
     },
     {
       "name": "flutter_svg",
-      "rootUri": "file:///Users/iwasaki/.pub-cache/hosted/pub.dev/flutter_svg-2.0.17",
+      "rootUri": "file:///Users/iwasaki/.pub-cache/hosted/pub.dev/flutter_svg-2.1.0",
       "packageUri": "lib/",
       "languageVersion": "3.4"
     },
@@ -333,7 +333,7 @@
     },
     {
       "name": "freezed",
-      "rootUri": "file:///Users/iwasaki/.pub-cache/hosted/pub.dev/freezed-3.0.4",
+      "rootUri": "file:///Users/iwasaki/.pub-cache/hosted/pub.dev/freezed-3.0.6",
       "packageUri": "lib/",
       "languageVersion": "3.6"
     },
@@ -417,7 +417,7 @@
     },
     {
       "name": "image_picker_android",
-      "rootUri": "file:///Users/iwasaki/.pub-cache/hosted/pub.dev/image_picker_android-0.8.12+22",
+      "rootUri": "file:///Users/iwasaki/.pub-cache/hosted/pub.dev/image_picker_android-0.8.12+23",
       "packageUri": "lib/",
       "languageVersion": "3.6"
     },
@@ -483,7 +483,7 @@
     },
     {
       "name": "json_serializable",
-      "rootUri": "file:///Users/iwasaki/.pub-cache/hosted/pub.dev/json_serializable-6.9.4",
+      "rootUri": "file:///Users/iwasaki/.pub-cache/hosted/pub.dev/json_serializable-6.9.5",
       "packageUri": "lib/",
       "languageVersion": "3.6"
     },
@@ -579,7 +579,7 @@
     },
     {
       "name": "path_provider_android",
-      "rootUri": "file:///Users/iwasaki/.pub-cache/hosted/pub.dev/path_provider_android-2.2.16",
+      "rootUri": "file:///Users/iwasaki/.pub-cache/hosted/pub.dev/path_provider_android-2.2.17",
       "packageUri": "lib/",
       "languageVersion": "3.6"
     },
@@ -645,13 +645,13 @@
     },
     {
       "name": "posix",
-      "rootUri": "file:///Users/iwasaki/.pub-cache/hosted/pub.dev/posix-6.0.1",
+      "rootUri": "file:///Users/iwasaki/.pub-cache/hosted/pub.dev/posix-6.0.2",
       "packageUri": "lib/",
       "languageVersion": "3.0"
     },
     {
       "name": "provider",
-      "rootUri": "file:///Users/iwasaki/.pub-cache/hosted/pub.dev/provider-6.1.4",
+      "rootUri": "file:///Users/iwasaki/.pub-cache/hosted/pub.dev/provider-6.1.5",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
@@ -807,13 +807,13 @@
     },
     {
       "name": "syncfusion_flutter_core",
-      "rootUri": "file:///Users/iwasaki/.pub-cache/hosted/pub.dev/syncfusion_flutter_core-29.1.35",
+      "rootUri": "file:///Users/iwasaki/.pub-cache/hosted/pub.dev/syncfusion_flutter_core-29.1.38",
       "packageUri": "lib/",
       "languageVersion": "3.4"
     },
     {
       "name": "syncfusion_flutter_pdf",
-      "rootUri": "file:///Users/iwasaki/.pub-cache/hosted/pub.dev/syncfusion_flutter_pdf-29.1.35",
+      "rootUri": "file:///Users/iwasaki/.pub-cache/hosted/pub.dev/syncfusion_flutter_pdf-29.1.38",
       "packageUri": "lib/",
       "languageVersion": "3.4"
     },
@@ -861,7 +861,7 @@
     },
     {
       "name": "url_launcher_web",
-      "rootUri": "file:///Users/iwasaki/.pub-cache/hosted/pub.dev/url_launcher_web-2.4.0",
+      "rootUri": "file:///Users/iwasaki/.pub-cache/hosted/pub.dev/url_launcher_web-2.4.1",
       "packageUri": "lib/",
       "languageVersion": "3.6"
     },
@@ -921,13 +921,13 @@
     },
     {
       "name": "web_socket",
-      "rootUri": "file:///Users/iwasaki/.pub-cache/hosted/pub.dev/web_socket-0.1.6",
+      "rootUri": "file:///Users/iwasaki/.pub-cache/hosted/pub.dev/web_socket-1.0.0",
       "packageUri": "lib/",
-      "languageVersion": "3.3"
+      "languageVersion": "3.4"
     },
     {
       "name": "web_socket_channel",
-      "rootUri": "file:///Users/iwasaki/.pub-cache/hosted/pub.dev/web_socket_channel-3.0.2",
+      "rootUri": "file:///Users/iwasaki/.pub-cache/hosted/pub.dev/web_socket_channel-3.0.3",
       "packageUri": "lib/",
       "languageVersion": "3.3"
     },
@@ -962,7 +962,7 @@
       "languageVersion": "3.3"
     }
   ],
-  "generated": "2025-04-02T16:05:23.843258Z",
+  "generated": "2025-05-01T17:40:54.551046Z",
   "generator": "pub",
   "generatorVersion": "3.6.0",
   "flutterRoot": "file:///Users/iwasaki/fvm/versions/stable",

@@ -21,64 +21,7 @@ class HomeScreen extends StatelessWidget {
           ),
         ],
       ),
-      endDrawer: Drawer(
-        child: ListView(
-          padding: EdgeInsets.zero,
-          children: [
-            DrawerHeader(
-              decoration: BoxDecoration(
-                color: Colors.deepOrangeAccent,
-              ),
-              child: Text(
-                'メニュー',
-                style: TextStyle(color: Colors.white, fontSize: 24),
-              ),
-            ),
-            ListTile(
-              leading: Icon(Icons.person),
-              title: Text('個人情報'),
-              onTap: () {
-                context.push('/personal-info');
-              },
-            ),
-            ListTile(
-              leading: Icon(Icons.work),
-              title: Text('職歴・学歴'),
-              onTap: () {
-                context.push('/education-and-work');
-              },
-            ),
-            ListTile(
-              leading: Icon(Icons.article),
-              title: Text('作成'),
-              onTap: () {
-                context.push('/resume-creation');
-              },
-            ),
-            ListTile(
-              leading: Icon(Icons.preview),
-              title: Text('プレビュー'),
-              onTap: () {
-                context.push('/preview');
-              },
-            ),
-            ListTile(
-              leading: Icon(Icons.folder),
-              title: Text('履歴書一覧'),
-              onTap: () {
-                context.push('/resumes');
-              },
-            ),
-            ListTile(
-              leading: Icon(Icons.help_outline),
-              title: Text('ヘルプ'),
-              onTap: () {
-                context.push('/help');
-              },
-            ),
-          ],
-        ),
-      ),
+      endDrawer: _drawer(context),
       body: Padding(
         padding: AppSpace.pxM,
         child: Column(
@@ -159,4 +102,122 @@ class HomeScreen extends StatelessWidget {
       ),
     );
   }
+
+  Widget _drawer(BuildContext context) {
+    return Drawer(
+      child: SafeArea(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            DrawerHeader(
+              decoration: BoxDecoration(
+                color: Colors.deepOrangeAccent,
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: const [
+                  Text(
+                    'メニュー',
+                    style: TextStyle(color: Colors.white, fontSize: 24),
+                  ),
+                  SizedBox(height: 8),
+                  Text(
+                    'ようこそ！',
+                    style: TextStyle(color: Colors.white70, fontSize: 14),
+                  ),
+                ],
+              ),
+            ),
+            Expanded(
+              child: ListView(
+                padding: EdgeInsets.zero,
+                children: [
+                  _drawerItem(
+                    context,
+                    icon: Icons.person,
+                    title: '個人情報',
+                    route: '/personal-info',
+                  ),
+                  _drawerItem(
+                    context,
+                    icon: Icons.work,
+                    title: '職歴・学歴',
+                    route: '/education-and-work',
+                  ),
+                  _drawerItem(
+                    context,
+                    icon: Icons.create,
+                    title: '作成',
+                    route: '/resume-creation',
+                  ),
+                  _drawerItem(
+                    context,
+                    icon: Icons.folder,
+                    title: '履歴書一覧',
+                    route: '/resumes',
+                  ),
+                  _drawerItem(
+                    context,
+                    icon: Icons.preview,
+                    title: 'プレビュー',
+                    route: '/preview',
+                  ),
+                  const Divider(),
+                  _drawerItem(
+                    context,
+                    icon: Icons.help_outline,
+                    title: '使い方・ヘルプ',
+                    route: '/help',
+                  ),
+                  _drawerItem(
+                    context,
+                    icon: Icons.article,
+                    title: '利用規約',
+                    route: '/terms',
+                  ),
+                  _drawerItem(
+                    context,
+                    icon: Icons.privacy_tip,
+                    title: 'プライバシーポリシー',
+                    route: '/privacy',
+                  ),
+                  _drawerItem(
+                    context,
+                    icon: Icons.mail_outline,
+                    title: 'お問い合わせ',
+                    route: '/contact',
+                  ),
+                ],
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(16),
+              child: Text(
+                'バージョン 1.0.0',
+                style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                  color: Colors.grey,
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _drawerItem(
+      BuildContext context, {
+        required IconData icon,
+        required String title,
+        required String route,
+      }) {
+    return ListTile(
+      leading: Icon(icon, color: Colors.deepOrange),
+      title: Text(title),
+      onTap: () {
+        context.push(route);
+      },
+    );
+  }
+
 }

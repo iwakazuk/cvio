@@ -34,8 +34,8 @@ class MyApp extends StatelessWidget {
         brightness: Brightness.dark,
         colorScheme: ColorScheme.fromSeed(
           brightness: Brightness.dark,
-          primary: Colors.orangeAccent,
-          seedColor: Colors.orangeAccent,
+          primary: Colors.deepOrange,
+          seedColor: Colors.deepOrange,
         ),
         textTheme: const TextTheme(
           bodyLarge: TextStyle(fontWeight: FontWeight.w300),

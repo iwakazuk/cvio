@@ -39,9 +39,6 @@ mixin _$PersonalInfo {
   /// 生年月日
   String? get birthday;
 
-  /// 年齢
-  String? get age;
-
   /// 性別
   String? get gender;
 
@@ -116,7 +113,6 @@ mixin _$PersonalInfo {
             (identical(other.phone, phone) || other.phone == phone) &&
             (identical(other.birthday, birthday) ||
                 other.birthday == birthday) &&
-            (identical(other.age, age) || other.age == age) &&
             (identical(other.gender, gender) || other.gender == gender) &&
             (identical(other.postalCode, postalCode) ||
                 other.postalCode == postalCode) &&
@@ -163,7 +159,6 @@ mixin _$PersonalInfo {
         email,
         phone,
         birthday,
-        age,
         gender,
         postalCode,
         addressPrefecture,
@@ -183,7 +178,7 @@ mixin _$PersonalInfo {
 
   @override
   String toString() {
-    return 'PersonalInfo(image: $image, lastName: $lastName, firstName: $firstName, lastNameKana: $lastNameKana, firstNameKana: $firstNameKana, email: $email, phone: $phone, birthday: $birthday, age: $age, gender: $gender, postalCode: $postalCode, addressPrefecture: $addressPrefecture, addressCity: $addressCity, addressStreet: $addressStreet, addressBuilding: $addressBuilding, addressKana: $addressKana, emergencyEmail: $emergencyEmail, emergencyPhone: $emergencyPhone, emergencyPostalCode: $emergencyPostalCode, emergencyAddressPrefecture: $emergencyAddressPrefecture, emergencyAddressCity: $emergencyAddressCity, emergencyAddressStreet: $emergencyAddressStreet, emergencyAddressBuilding: $emergencyAddressBuilding, emergencyAddressKana: $emergencyAddressKana)';
+    return 'PersonalInfo(image: $image, lastName: $lastName, firstName: $firstName, lastNameKana: $lastNameKana, firstNameKana: $firstNameKana, email: $email, phone: $phone, birthday: $birthday, gender: $gender, postalCode: $postalCode, addressPrefecture: $addressPrefecture, addressCity: $addressCity, addressStreet: $addressStreet, addressBuilding: $addressBuilding, addressKana: $addressKana, emergencyEmail: $emergencyEmail, emergencyPhone: $emergencyPhone, emergencyPostalCode: $emergencyPostalCode, emergencyAddressPrefecture: $emergencyAddressPrefecture, emergencyAddressCity: $emergencyAddressCity, emergencyAddressStreet: $emergencyAddressStreet, emergencyAddressBuilding: $emergencyAddressBuilding, emergencyAddressKana: $emergencyAddressKana)';
   }
 }
 
@@ -202,7 +197,6 @@ abstract mixin class $PersonalInfoCopyWith<$Res> {
       String? email,
       String? phone,
       String? birthday,
-      String? age,
       String? gender,
       String? postalCode,
       String? addressPrefecture,
@@ -240,7 +234,6 @@ class _$PersonalInfoCopyWithImpl<$Res> implements $PersonalInfoCopyWith<$Res> {
     Object? email = freezed,
     Object? phone = freezed,
     Object? birthday = freezed,
-    Object? age = freezed,
     Object? gender = freezed,
     Object? postalCode = freezed,
     Object? addressPrefecture = freezed,
@@ -289,10 +282,6 @@ class _$PersonalInfoCopyWithImpl<$Res> implements $PersonalInfoCopyWith<$Res> {
       birthday: freezed == birthday
           ? _self.birthday
           : birthday // ignore: cast_nullable_to_non_nullable
-              as String?,
-      age: freezed == age
-          ? _self.age
-          : age // ignore: cast_nullable_to_non_nullable
               as String?,
       gender: freezed == gender
           ? _self.gender
@@ -370,7 +359,6 @@ class _PersonalInfo implements PersonalInfo {
       this.email,
       this.phone,
       this.birthday,
-      this.age,
       this.gender,
       this.postalCode,
       this.addressPrefecture,
@@ -420,10 +408,6 @@ class _PersonalInfo implements PersonalInfo {
   /// 生年月日
   @override
   final String? birthday;
-
-  /// 年齢
-  @override
-  final String? age;
 
   /// 性別
   @override
@@ -518,7 +502,6 @@ class _PersonalInfo implements PersonalInfo {
             (identical(other.phone, phone) || other.phone == phone) &&
             (identical(other.birthday, birthday) ||
                 other.birthday == birthday) &&
-            (identical(other.age, age) || other.age == age) &&
             (identical(other.gender, gender) || other.gender == gender) &&
             (identical(other.postalCode, postalCode) ||
                 other.postalCode == postalCode) &&
@@ -565,7 +548,6 @@ class _PersonalInfo implements PersonalInfo {
         email,
         phone,
         birthday,
-        age,
         gender,
         postalCode,
         addressPrefecture,
@@ -585,7 +567,7 @@ class _PersonalInfo implements PersonalInfo {
 
   @override
   String toString() {
-    return 'PersonalInfo(image: $image, lastName: $lastName, firstName: $firstName, lastNameKana: $lastNameKana, firstNameKana: $firstNameKana, email: $email, phone: $phone, birthday: $birthday, age: $age, gender: $gender, postalCode: $postalCode, addressPrefecture: $addressPrefecture, addressCity: $addressCity, addressStreet: $addressStreet, addressBuilding: $addressBuilding, addressKana: $addressKana, emergencyEmail: $emergencyEmail, emergencyPhone: $emergencyPhone, emergencyPostalCode: $emergencyPostalCode, emergencyAddressPrefecture: $emergencyAddressPrefecture, emergencyAddressCity: $emergencyAddressCity, emergencyAddressStreet: $emergencyAddressStreet, emergencyAddressBuilding: $emergencyAddressBuilding, emergencyAddressKana: $emergencyAddressKana)';
+    return 'PersonalInfo(image: $image, lastName: $lastName, firstName: $firstName, lastNameKana: $lastNameKana, firstNameKana: $firstNameKana, email: $email, phone: $phone, birthday: $birthday, gender: $gender, postalCode: $postalCode, addressPrefecture: $addressPrefecture, addressCity: $addressCity, addressStreet: $addressStreet, addressBuilding: $addressBuilding, addressKana: $addressKana, emergencyEmail: $emergencyEmail, emergencyPhone: $emergencyPhone, emergencyPostalCode: $emergencyPostalCode, emergencyAddressPrefecture: $emergencyAddressPrefecture, emergencyAddressCity: $emergencyAddressCity, emergencyAddressStreet: $emergencyAddressStreet, emergencyAddressBuilding: $emergencyAddressBuilding, emergencyAddressKana: $emergencyAddressKana)';
   }
 }
 
@@ -606,7 +588,6 @@ abstract mixin class _$PersonalInfoCopyWith<$Res>
       String? email,
       String? phone,
       String? birthday,
-      String? age,
       String? gender,
       String? postalCode,
       String? addressPrefecture,
@@ -645,7 +626,6 @@ class __$PersonalInfoCopyWithImpl<$Res>
     Object? email = freezed,
     Object? phone = freezed,
     Object? birthday = freezed,
-    Object? age = freezed,
     Object? gender = freezed,
     Object? postalCode = freezed,
     Object? addressPrefecture = freezed,
@@ -694,10 +674,6 @@ class __$PersonalInfoCopyWithImpl<$Res>
       birthday: freezed == birthday
           ? _self.birthday
           : birthday // ignore: cast_nullable_to_non_nullable
-              as String?,
-      age: freezed == age
-          ? _self.age
-          : age // ignore: cast_nullable_to_non_nullable
               as String?,
       gender: freezed == gender
           ? _self.gender

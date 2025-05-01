@@ -82,7 +82,7 @@ class _AppDropdownState extends State<AppDropdown> {
                 borderRadius: BorderRadius.circular(12),
                 underline: Container(),
                 dropdownColor: Colors.grey[700],
-                menuWidth: 120,
+                menuWidth: 160,
                 isExpanded: true,
                 // 現在選択されている値
                 value: _selectedValue,

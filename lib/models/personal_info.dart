@@ -1,6 +1,7 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'personal_info.freezed.dart';
+
 part 'personal_info.g.dart';
 
 /// 個人情報
@@ -30,9 +31,6 @@ abstract class PersonalInfo with _$PersonalInfo {
 
     /// 生年月日
     String? birthday,
-
-    /// 年齢
-    String? age,
 
     /// 性別
     String? gender,
@@ -81,5 +79,46 @@ abstract class PersonalInfo with _$PersonalInfo {
   }) = _PersonalInfo;
 
   /// JSON から `PersonalInfo` インスタンスを生成
-  factory PersonalInfo.fromJson(Map<String, dynamic> json) => _$PersonalInfoFromJson(json);
+  factory PersonalInfo.fromJson(Map<String, dynamic> json) =>
+      _$PersonalInfoFromJson(json);
+}
+
+extension PersonalInfoExtension on PersonalInfo {
+  /// フルネームを取得
+  String get fullName => '$lastName$firstName';
+
+  /// 誕生年を取得
+  String get birthYear => birthday?.split('-').first ?? '';
+
+  /// 誕生月を取得
+  String get birthMonth => birthday?.split('-').elementAt(1) ?? '';
+
+  /// 誕生日を取得
+  String get birthDay => birthday?.split('-').last.split(' ').first ?? '';
+
+  /// 年齢を取得
+  String get age {
+    if (birthday == null) return '';
+    final birthDate = DateTime.parse(birthday!);
+    final now = DateTime.now();
+    final age = now.year - birthDate.year;
+    if (now.month < birthDate.month ||
+        (now.month == birthDate.month && now.day < birthDate.day)) {
+      return (age - 1).toString();
+    }
+    return age.toString();
+  }
+
+  /// 住所を取得
+  String get address {
+    final addressParts = [
+      addressPrefecture,
+      addressCity,
+      addressStreet,
+      addressBuilding,
+    ];
+    return addressParts
+        .where((part) => part != null && part.isNotEmpty)
+        .join(' ');
+  }
 }

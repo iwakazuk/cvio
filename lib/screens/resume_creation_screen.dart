@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:custom_sliding_segmented_control/custom_sliding_segmented_control.dart';
+import 'package:cvio/widgets/app_border.dart';
 import 'package:cvio/widgets/app_container.dart';
 import 'package:cvio/widgets/primary_button.dart';
 import 'package:flutter/cupertino.dart';
@@ -17,6 +18,7 @@ import '../utils/app_space.dart';
 import '../utils/app_text_style.dart';
 import '../utils/helper.dart';
 import '../widgets/app_date_picker.dart';
+import '../widgets/app_drop_down.dart';
 import '../widgets/app_text_field.dart';
 
 class ResumeCreationScreen extends HookConsumerWidget {
@@ -27,10 +29,11 @@ class ResumeCreationScreen extends HookConsumerWidget {
 
     final resume = ref.watch(resumeProvider(providerKey.value));
     final resumeNotifier = ref.read(resumeProvider(providerKey.value).notifier);
+    final label = resume.isCareer == true ? '職務経歴書' : '履歴書';
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('履歴書作成', style: AppTextStyle.header),
+        title: Text('$label作成', style: AppTextStyle.header),
         leading: IconButton(
           icon: Icon(Icons.arrow_back_ios),
           onPressed: () {
@@ -43,61 +46,97 @@ class ResumeCreationScreen extends HookConsumerWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             AppSpace.hM,
-            Padding(
-              padding: AppSpace.pM,
-              child: Row(
+            AppContainer(
+              title: "設定",
+              child: Column(
                 children: [
-                  Expanded(
-                    child: CustomSlidingSegmentedControl<String>(
-                      height: 30,
-                      children: {
-                        '履歴書': const Padding(
-                          padding: AppSpace.pXS,
-                          child: Text('履歴書'),
+                  AppTextField(
+                    label: "タイトル",
+                    hintText: '例: 〇〇株式会社の履歴書',
+                    keyboardType: TextInputType.multiline,
+                    onChanged: (value) {
+                      final formatted = value.replaceAll('\n', '');
+                      resumeNotifier.updateTitle(formatted);
+                    },
+                  ),
+                  AppBorder(),
+                  AppDatePicker(
+                    label: "作成日",
+                    initialDate: resume.createDate ?? DateTime.now(),
+                    firstDate: DateTime(1990),
+                    lastDate: DateTime.now().add(const Duration(days: 365)),
+                    onDateSelected: (dateTime) {
+                      resumeNotifier.updateCreateDate(dateTime);
+                    },
+                  ),
+                  AppBorder(),
+                  Row(
+                    children: [
+                      SizedBox(
+                        width: 130,
+                        child: Text(
+                          'カテゴリ',
+                          style: const TextStyle(
+                            fontSize: 14,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
-                        '職務経歴書': const Padding(
-                          padding: AppSpace.pXS,
-                          child: Text('職務経歴書'),
+                      ),
+                      Expanded(
+                        child: Padding(
+                          padding: AppSpace.prM + AppSpace.pyS,
+                          child: CustomSlidingSegmentedControl<String>(
+                            height: 30,
+                            children: {
+                              '履歴書': const Padding(
+                                padding: AppSpace.pXS,
+                                child: Text(
+                                  '履歴書',
+                                  style: TextStyle(color: Colors.white),
+                                ),
+                              ),
+                              '職務経歴書': const Padding(
+                                padding: AppSpace.pXS,
+                                child: Text(
+                                  '職務経歴書',
+                                  style: TextStyle(color: Colors.white),
+                                ),
+                              ),
+                            },
+                            onValueChanged: (value) {
+                              resumeNotifier.onChangeType(value);
+                            },
+                            decoration: BoxDecoration(
+                              color: Theme.of(context).focusColor,
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            thumbDecoration: BoxDecoration(
+                              color:
+                                  Theme.of(context).disabledColor.withAlpha(70),
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            isStretch: true,
+                          ),
                         ),
-                      },
-                      onValueChanged: (value) {
-                        resumeNotifier.onChangeType(value);
-                      },
-                      decoration: BoxDecoration(
-                        color: Theme.of(context).focusColor,
-                        borderRadius: BorderRadius.circular(8),
                       ),
-                      thumbDecoration: BoxDecoration(
-                        color: Theme.of(context).disabledColor.withAlpha(70),
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                      isStretch: true,
-                    ),
+                    ],
+                  ),
+                  AppBorder(),
+                  AppDropdown(
+                    label: 'フォント',
+                    initialValue: resume.font ?? 'NotoSansJp',
+                    values: [
+                      'NotoSansJp',
+                      'NotoSerifJP',
+                      'ZenKakuGothic',
+                      'ZenOldMincho',
+                      'BIZUDPGothic'
+                    ],
+                    onChanged: (value) {
+                      resumeNotifier.updateFont(value);
+                    },
                   ),
                 ],
-              ),
-            ),
-            AppContainer(
-              title: "",
-              child: AppDatePicker(
-                label: "作成日",
-                initialDate: DateTime.now(),
-                firstDate: DateTime(1990),
-                lastDate: DateTime.now().add(const Duration(days: 365)),
-                onDateSelected: (dateTime) {
-                  resumeNotifier.updateCreateDate(dateTime);
-                },
-              ),
-            ),
-            AppContainer(
-              title: "タイトル",
-              child: AppTextField(
-                hintText: 'タイトルを入力してください\n(例: 〇〇株式会社 履歴書)',
-                keyboardType: TextInputType.multiline,
-                onChanged: (value) {
-                  final formatted = value.replaceAll('\n', '');
-                  resumeNotifier.updateTitle(formatted);
-                },
               ),
             ),
             if (resume.isCareer == true)
@@ -140,9 +179,7 @@ class ResumeCreationScreen extends HookConsumerWidget {
               child: PrimaryButton(
                 label: '作成',
                 onPressed: () {
-                  final message = resume.isCareer == true
-                      ? '職務経歴書'
-                      : '履歴書';
+                  final message = resume.isCareer == true ? '職務経歴書' : '履歴書';
                   resumeNotifier.saveToDb(resume).then((success) async {
                     if (success) {
                       try {

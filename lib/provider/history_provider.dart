@@ -13,130 +13,98 @@ import '../repository/personal_info_repository.dart';
 class HistoryNotifier extends StateNotifier<History> {
   final HistoryRepository _repository;
 
-  // コンストラクタ
-  HistoryNotifier(
-      this._repository,
-      History initial,
-      ) : super(initial);
+  HistoryNotifier(this._repository, History initial) : super(initial);
 
-  /// DB からデータを読み込み、state を更新
-  Future<void> loadFromDb() async {
+  // ──────────────────────────────
+  // 共通：年/月降順で並べ替え
+  List<Academic> _sortedAcademics(List<Academic> list) =>
+      [...list]..sort((a, b) => a.compareTo(b));
+
+  List<Work> _sortedWorks(List<Work> list) =>
+      [...list]..sort((a, b) => a.compareTo(b));
+
+  List<Qualification> _sortedQualifications(List<Qualification> list) =>
+      [...list]..sort((a, b) => a.compareTo(b));
+
+  // ──────────────────────────────
+  /// DB から読み込み
+  Future<History> loadFromDb() async {
     final loaded = await _repository.loadHistory();
     if (loaded != null) {
-      state = loaded;
+      state = loaded.copyWith(
+        academics: _sortedAcademics(loaded.academics),
+        works: _sortedWorks(loaded.works),
+        qualifications: _sortedQualifications(loaded.qualifications),
+      );
+      return state;
     }
+    return History();
   }
 
-  /// DB に現在の state を保存
-  /// return: 保存に成功した場合 true
+  /// 保存（変更なし）
   Future<bool> saveToDb() async {
     await _repository.saveHistory(state);
     return true;
   }
 
-  // ------------------------------------------------------------
-  // List全体をまとめて置き換える既存メソッド
-  // ------------------------------------------------------------
-  /// 学歴を一括で更新
-  void updateAcademics(List<Academic> newAcademic) {
-    state = state.copyWith(academics: newAcademic);
-  }
+  // ──────────────────────────────
+  /// 追加系
+  void addAcademic(Academic academic) => state = state.copyWith(
+          academics: _sortedAcademics(
+        [...state.academics, academic],
+      ));
 
-  /// 職歴を一括で更新
-  void updateWorks(List<Work> newWork) {
-    state = state.copyWith(works: newWork);
-  }
+  void addWork(Work work) => state = state.copyWith(
+          works: _sortedWorks(
+        [...state.works, work],
+      ));
 
-  /// 資格を一括で更新
-  void updateQualifications(List<Qualification> newQualification) {
-    state = state.copyWith(qualifications: newQualification);
-  }
+  void addQualification(Qualification q) => state = state.copyWith(
+          qualifications: _sortedQualifications(
+        [...state.qualifications, q],
+      ));
 
-  /// History 全体を一括で更新するメソッド（オマケ）
-  void updateAll(History newInfo) {
-    state = newInfo;
-  }
-
-  // ------------------------------------------------------------
-  // 以下、1件ずつ追加 / 更新 / 削除するメソッドを追加
-  // ------------------------------------------------------------
-
-  // ========= Academic =========
-  /// 学歴を1件追加
-  void addAcademic(Academic academic) {
-    final newAcademics = [...state.academics];
-    newAcademics.add(academic);
-    state = state.copyWith(academics: newAcademics);
-  }
-
-  /// 学歴を1件更新（[index]番目を[academic]で上書き）
+  // ──────────────────────────────
+  /// 更新系
   void updateAcademic(Academic academic, int index) {
     if (index < 0 || index >= state.academics.length) return;
-    final newAcademics = [...state.academics];
-    newAcademics[index] = academic;
-    state = state.copyWith(academics: newAcademics);
+    final list = [...state.academics]..[index] = academic;
+    state = state.copyWith(academics: _sortedAcademics(list));
   }
 
-  /// 学歴を1件削除（[index]番目を削除）
-  void deleteAcademic(int index) {
-    if (index < 0 || index >= state.academics.length) return;
-    final newAcademics = [...state.academics];
-    newAcademics.removeAt(index);
-    state = state.copyWith(academics: newAcademics);
-  }
-
-  // ========= Work =========
-  /// 職歴を1件追加
-  void addWork(Work work) {
-    final newWorks = [...state.works];
-    newWorks.add(work);
-    state = state.copyWith(works: newWorks);
-  }
-
-  /// 職歴を1件更新
   void updateWork(Work work, int index) {
     if (index < 0 || index >= state.works.length) return;
-    final newWorks = [...state.works];
-    newWorks[index] = work;
-    state = state.copyWith(works: newWorks);
+    final list = [...state.works]..[index] = work;
+    state = state.copyWith(works: _sortedWorks(list));
   }
 
-  /// 職歴を1件削除
+  void updateQualification(Qualification q, int index) {
+    if (index < 0 || index >= state.qualifications.length) return;
+    final list = [...state.qualifications]..[index] = q;
+    state = state.copyWith(qualifications: _sortedQualifications(list));
+  }
+
+  // ──────────────────────────────
+  /// 削除系（並び順は変わらないのでソート不要）
+  void deleteAcademic(int index) {
+    if (index < 0 || index >= state.academics.length) return;
+    final list = [...state.academics]..removeAt(index);
+    state = state.copyWith(academics: list);
+  }
+
   void deleteWork(int index) {
     if (index < 0 || index >= state.works.length) return;
-    final newWorks = [...state.works];
-    newWorks.removeAt(index);
-    state = state.copyWith(works: newWorks);
+    final list = [...state.works]..removeAt(index);
+    state = state.copyWith(works: list);
   }
 
-  // ========= Qualification =========
-  /// 資格を1件追加
-  void addQualification(Qualification qualification) {
-    final newQualifications = [...state.qualifications];
-    newQualifications.add(qualification);
-    state = state.copyWith(qualifications: newQualifications);
-  }
-
-  /// 資格を1件更新
-  void updateQualification(Qualification qualification, int index) {
-    if (index < 0 || index >= state.qualifications.length) return;
-    final newQualifications = [...state.qualifications];
-    newQualifications[index] = qualification;
-    state = state.copyWith(qualifications: newQualifications);
-  }
-
-  /// 資格を1件削除
   void deleteQualification(int index) {
     if (index < 0 || index >= state.qualifications.length) return;
-    final newQualifications = [...state.qualifications];
-    newQualifications.removeAt(index);
-    state = state.copyWith(qualifications: newQualifications);
+    final list = [...state.qualifications]..removeAt(index);
+    state = state.copyWith(qualifications: list);
   }
 
-  /// リセット
-  void reset() {
-    state = History();
-  }
+  void reset() => state = History();
 }
 
 /// 個人情報をグローバルに提供する StateNotifierProvider

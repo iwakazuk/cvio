@@ -31,12 +31,13 @@ class ResumeNotifier extends StateNotifier<Resume> {
     );
   }
 
-  void loadFromDb(String key) async {
+  Future<Resume> loadFromDb(String key) async {
     final loaded = await _repository.loadResume();
     final resume = loaded?.where((r) => r.id == key).first;
     if (resume != null) {
       state = resume;
     }
+    return resume ?? Resume();
   }
 
   /// 履歴書のタイトルを変更
@@ -57,6 +58,11 @@ class ResumeNotifier extends StateNotifier<Resume> {
   /// 履歴書の内容を変更
   void updateSubContent(String subContent) {
     state = state.copyWith(subContent: subContent);
+  }
+
+  /// 履歴書のフォントを変更
+  void updateFont(String? font) {
+    state = state.copyWith(font: font);
   }
 
   /// DB に現在の state を保存

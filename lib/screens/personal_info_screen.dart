@@ -425,7 +425,12 @@ class PersonalInfoScreen extends HookConsumerWidget {
         ),
         margin: AppSpace.pM,
         padding: AppSpace.pxM + AppSpace.pyXS,
-        child: Text("変更"),
+        child: Text(
+          "変更",
+          style: AppTextStyle.bodyPrimary.copyWith(
+            fontSize: 14,
+          ),
+        ),
       ),
       onSelected: (value) {
         switch (value) {

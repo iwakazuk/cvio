@@ -25,3 +25,24 @@ abstract class Academic with _$Academic {
   /// JSON から `Academic` インスタンスを生成
   factory Academic.fromJson(Map<String, dynamic> json) => _$AcademicFromJson(json);
 }
+
+extension AcademicX on Academic {
+  /// 表示用の年月
+  String get yearMonth {
+    final y = year ?? '';
+    final m = month ?? '';
+    return '$y/$m';
+  }
+
+  /// 年月ベースの比較（新しい順）
+  int compareTo(Academic other) {
+    final y1 = int.tryParse(year ?? '') ?? 0;
+    final m1 = int.tryParse(month ?? '') ?? 0;
+    final y2 = int.tryParse(other.year ?? '') ?? 0;
+    final m2 = int.tryParse(other.month ?? '') ?? 0;
+
+    if (y2 != y1) return y2 - y1;
+    return m2 - m1;
+  }
+}
+

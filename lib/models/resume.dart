@@ -34,3 +34,11 @@ abstract class Resume with _$Resume {
   /// JSON から `Resume` インスタンスを生成
   factory Resume.fromJson(Map<String, dynamic> json) => _$ResumeFromJson(json);
 }
+
+enum FontType {
+  notoSansJP,
+  NotoSerifJP,
+  ZenKakuGothicNew,
+  ZenOldMincho,
+  BIZUDPGothic,
+}

@@ -10,6 +10,7 @@ class AppDatePicker extends StatefulWidget {
   final String? label;
   final DateTime firstDate;
   final DateTime lastDate;
+  final CupertinoDatePickerMode mode;
   final Function(DateTime) onDateSelected;
 
   const AppDatePicker({
@@ -18,6 +19,7 @@ class AppDatePicker extends StatefulWidget {
     this.label,
     required this.firstDate,
     required this.lastDate,
+    this.mode = CupertinoDatePickerMode.date,
     required this.onDateSelected,
   }) : super(key: key);
 
@@ -44,6 +46,9 @@ class _AppDatePickerState extends State<AppDatePicker> {
 
   @override
   Widget build(BuildContext context) {
+    final format = widget.mode != CupertinoDatePickerMode.date
+        ? DateFormat('yyyy/MM')
+        : DateFormat('yyyy/MM/dd');
     return Row(
       children: [
         SizedBox(
@@ -88,7 +93,7 @@ class _AppDatePickerState extends State<AppDatePicker> {
                         ),
                         Expanded(
                           child: CupertinoDatePicker(
-                            mode: CupertinoDatePickerMode.date,
+                            mode: widget.mode,
                             maximumDate: widget.lastDate,
                             initialDateTime: _selectedDate ?? widget.firstDate,
                             onDateTimeChanged: (DateTime dateTime) {
@@ -110,7 +115,7 @@ class _AppDatePickerState extends State<AppDatePicker> {
                   Expanded(
                     child: Text(
                       _selectedDate != null
-                          ? DateFormat('yyyy/MM/dd').format(_selectedDate!)
+                          ? format.format(_selectedDate!)
                           : '日付を選択',
                       style: TextStyle(
                         fontSize: 16,
