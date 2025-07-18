@@ -12,17 +12,23 @@ abstract class Resume with _$Resume {
     /// タイトル
     String? title,
 
-    /// 内容
+    /// 自己PR
+    String? selfPR,
+
+    /// 志望動機/職務要約
     String? content,
+
+    /// 本人希望欄
+    String? subContent,
 
     /// 作成日
     DateTime? createDate,
 
-    /// 本人希望欄など
-    String? subContent,
-
     /// PDF
     String? path,
+
+    /// 履歴書の種類
+    String? type,
 
     /// フォント
     String? font,

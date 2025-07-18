@@ -20,17 +20,23 @@ mixin _$Resume {
   /// タイトル
   String? get title;
 
-  /// 内容
+  /// 自己PR
+  String? get selfPR;
+
+  /// 志望動機/職務要約
   String? get content;
+
+  /// 本人希望欄
+  String? get subContent;
 
   /// 作成日
   DateTime? get createDate;
 
-  /// 本人希望欄など
-  String? get subContent;
-
   /// PDF
   String? get path;
+
+  /// 履歴書の種類
+  String? get type;
 
   /// フォント
   String? get font;
@@ -55,12 +61,14 @@ mixin _$Resume {
             other is Resume &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.title, title) || other.title == title) &&
+            (identical(other.selfPR, selfPR) || other.selfPR == selfPR) &&
             (identical(other.content, content) || other.content == content) &&
-            (identical(other.createDate, createDate) ||
-                other.createDate == createDate) &&
             (identical(other.subContent, subContent) ||
                 other.subContent == subContent) &&
+            (identical(other.createDate, createDate) ||
+                other.createDate == createDate) &&
             (identical(other.path, path) || other.path == path) &&
+            (identical(other.type, type) || other.type == type) &&
             (identical(other.font, font) || other.font == font) &&
             (identical(other.isCareer, isCareer) ||
                 other.isCareer == isCareer));
@@ -68,12 +76,12 @@ mixin _$Resume {
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, id, title, content, createDate,
-      subContent, path, font, isCareer);
+  int get hashCode => Object.hash(runtimeType, id, title, selfPR, content,
+      subContent, createDate, path, type, font, isCareer);
 
   @override
   String toString() {
-    return 'Resume(id: $id, title: $title, content: $content, createDate: $createDate, subContent: $subContent, path: $path, font: $font, isCareer: $isCareer)';
+    return 'Resume(id: $id, title: $title, selfPR: $selfPR, content: $content, subContent: $subContent, createDate: $createDate, path: $path, type: $type, font: $font, isCareer: $isCareer)';
   }
 }
 
@@ -85,10 +93,12 @@ abstract mixin class $ResumeCopyWith<$Res> {
   $Res call(
       {String? id,
       String? title,
+      String? selfPR,
       String? content,
-      DateTime? createDate,
       String? subContent,
+      DateTime? createDate,
       String? path,
+      String? type,
       String? font,
       bool? isCareer});
 }
@@ -107,10 +117,12 @@ class _$ResumeCopyWithImpl<$Res> implements $ResumeCopyWith<$Res> {
   $Res call({
     Object? id = freezed,
     Object? title = freezed,
+    Object? selfPR = freezed,
     Object? content = freezed,
-    Object? createDate = freezed,
     Object? subContent = freezed,
+    Object? createDate = freezed,
     Object? path = freezed,
+    Object? type = freezed,
     Object? font = freezed,
     Object? isCareer = freezed,
   }) {
@@ -123,21 +135,29 @@ class _$ResumeCopyWithImpl<$Res> implements $ResumeCopyWith<$Res> {
           ? _self.title
           : title // ignore: cast_nullable_to_non_nullable
               as String?,
+      selfPR: freezed == selfPR
+          ? _self.selfPR
+          : selfPR // ignore: cast_nullable_to_non_nullable
+              as String?,
       content: freezed == content
           ? _self.content
           : content // ignore: cast_nullable_to_non_nullable
+              as String?,
+      subContent: freezed == subContent
+          ? _self.subContent
+          : subContent // ignore: cast_nullable_to_non_nullable
               as String?,
       createDate: freezed == createDate
           ? _self.createDate
           : createDate // ignore: cast_nullable_to_non_nullable
               as DateTime?,
-      subContent: freezed == subContent
-          ? _self.subContent
-          : subContent // ignore: cast_nullable_to_non_nullable
-              as String?,
       path: freezed == path
           ? _self.path
           : path // ignore: cast_nullable_to_non_nullable
+              as String?,
+      type: freezed == type
+          ? _self.type
+          : type // ignore: cast_nullable_to_non_nullable
               as String?,
       font: freezed == font
           ? _self.font
@@ -157,10 +177,12 @@ class _Resume implements Resume {
   const _Resume(
       {this.id,
       this.title,
+      this.selfPR,
       this.content,
-      this.createDate,
       this.subContent,
+      this.createDate,
       this.path,
+      this.type,
       this.font,
       this.isCareer});
   factory _Resume.fromJson(Map<String, dynamic> json) => _$ResumeFromJson(json);
@@ -172,21 +194,29 @@ class _Resume implements Resume {
   @override
   final String? title;
 
-  /// 内容
+  /// 自己PR
+  @override
+  final String? selfPR;
+
+  /// 志望動機/職務要約
   @override
   final String? content;
+
+  /// 本人希望欄
+  @override
+  final String? subContent;
 
   /// 作成日
   @override
   final DateTime? createDate;
 
-  /// 本人希望欄など
-  @override
-  final String? subContent;
-
   /// PDF
   @override
   final String? path;
+
+  /// 履歴書の種類
+  @override
+  final String? type;
 
   /// フォント
   @override
@@ -218,12 +248,14 @@ class _Resume implements Resume {
             other is _Resume &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.title, title) || other.title == title) &&
+            (identical(other.selfPR, selfPR) || other.selfPR == selfPR) &&
             (identical(other.content, content) || other.content == content) &&
-            (identical(other.createDate, createDate) ||
-                other.createDate == createDate) &&
             (identical(other.subContent, subContent) ||
                 other.subContent == subContent) &&
+            (identical(other.createDate, createDate) ||
+                other.createDate == createDate) &&
             (identical(other.path, path) || other.path == path) &&
+            (identical(other.type, type) || other.type == type) &&
             (identical(other.font, font) || other.font == font) &&
             (identical(other.isCareer, isCareer) ||
                 other.isCareer == isCareer));
@@ -231,12 +263,12 @@ class _Resume implements Resume {
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, id, title, content, createDate,
-      subContent, path, font, isCareer);
+  int get hashCode => Object.hash(runtimeType, id, title, selfPR, content,
+      subContent, createDate, path, type, font, isCareer);
 
   @override
   String toString() {
-    return 'Resume(id: $id, title: $title, content: $content, createDate: $createDate, subContent: $subContent, path: $path, font: $font, isCareer: $isCareer)';
+    return 'Resume(id: $id, title: $title, selfPR: $selfPR, content: $content, subContent: $subContent, createDate: $createDate, path: $path, type: $type, font: $font, isCareer: $isCareer)';
   }
 }
 
@@ -249,10 +281,12 @@ abstract mixin class _$ResumeCopyWith<$Res> implements $ResumeCopyWith<$Res> {
   $Res call(
       {String? id,
       String? title,
+      String? selfPR,
       String? content,
-      DateTime? createDate,
       String? subContent,
+      DateTime? createDate,
       String? path,
+      String? type,
       String? font,
       bool? isCareer});
 }
@@ -271,10 +305,12 @@ class __$ResumeCopyWithImpl<$Res> implements _$ResumeCopyWith<$Res> {
   $Res call({
     Object? id = freezed,
     Object? title = freezed,
+    Object? selfPR = freezed,
     Object? content = freezed,
-    Object? createDate = freezed,
     Object? subContent = freezed,
+    Object? createDate = freezed,
     Object? path = freezed,
+    Object? type = freezed,
     Object? font = freezed,
     Object? isCareer = freezed,
   }) {
@@ -287,21 +323,29 @@ class __$ResumeCopyWithImpl<$Res> implements _$ResumeCopyWith<$Res> {
           ? _self.title
           : title // ignore: cast_nullable_to_non_nullable
               as String?,
+      selfPR: freezed == selfPR
+          ? _self.selfPR
+          : selfPR // ignore: cast_nullable_to_non_nullable
+              as String?,
       content: freezed == content
           ? _self.content
           : content // ignore: cast_nullable_to_non_nullable
+              as String?,
+      subContent: freezed == subContent
+          ? _self.subContent
+          : subContent // ignore: cast_nullable_to_non_nullable
               as String?,
       createDate: freezed == createDate
           ? _self.createDate
           : createDate // ignore: cast_nullable_to_non_nullable
               as DateTime?,
-      subContent: freezed == subContent
-          ? _self.subContent
-          : subContent // ignore: cast_nullable_to_non_nullable
-              as String?,
       path: freezed == path
           ? _self.path
           : path // ignore: cast_nullable_to_non_nullable
+              as String?,
+      type: freezed == type
+          ? _self.type
+          : type // ignore: cast_nullable_to_non_nullable
               as String?,
       font: freezed == font
           ? _self.font

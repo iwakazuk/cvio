@@ -28,10 +28,21 @@
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
 	<string>Main</string>
-	<key>NSCameraUsageDescription</key>
-    <string>履歴書の証明写真に使用</string>
+
+    <!-- ✅ 画像ピックに必須 -->
     <key>NSPhotoLibraryUsageDescription</key>
-    <string>履歴書の証明写真に使用</string>
+    <string>履歴書写真の選択に使用します</string>
+
+    <!-- 📷 カメラ撮影機能を実装する場合のみ必須 -->
+    <key>NSCameraUsageDescription</key>
+    <string>履歴書写真の撮影に使用します</string>
+
+    <!-- ✅ FilePicker が iOS14+ で Documents/Downloads にアクセスする際の説明 -->
+    <key>NSDocumentsFolderUsageDescription</key>
+    <string>書類フォルダ内の画像を選択するために使用します</string>
+    <key>NSDownloadsFolderUsageDescription</key>
+    <string>ダウンロードフォルダ内の画像を選択するために使用します</string>
+
     <key>UIBackgroundModes</key>
     <array>
     	<string>fetch</string>

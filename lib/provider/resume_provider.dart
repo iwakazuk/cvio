@@ -11,6 +11,7 @@ import '../repository/resume_repository.dart';
 /// 個人情報を管理する StateNotifier
 class ResumeNotifier extends StateNotifier<Resume> {
   final ResumeRepository _repository;
+  bool isFixed = false;
 
   // コンストラクタ
   ResumeNotifier(
@@ -23,6 +24,7 @@ class ResumeNotifier extends StateNotifier<Resume> {
   void onChangeType(String type) {
     state = state.copyWith(
       isCareer: type == '職務経歴書',
+      selfPR: null,
       content: null,
       subContent: null,
       path: type == '職務経歴書'
@@ -42,26 +44,37 @@ class ResumeNotifier extends StateNotifier<Resume> {
 
   /// 履歴書のタイトルを変更
   void updateTitle(String title) {
+    isFixed = true;
     state = state.copyWith(title: title);
   }
 
   /// 履歴書の作成日を変更
   void updateCreateDate(DateTime createDate) {
+    isFixed = true;
     state = state.copyWith(createDate: createDate);
   }
 
-  /// 履歴書の内容を変更
+  /// 自己PRを変更
+  void updateSelfPR(String selfPR) {
+    isFixed = true;
+    state = state.copyWith(selfPR: selfPR);
+  }
+
+  /// 志望動機/職務要約を変更
   void updateContent(String content) {
+    isFixed = true;
     state = state.copyWith(content: content);
   }
 
-  /// 履歴書の内容を変更
+  /// 本人希望欄の内容を変更
   void updateSubContent(String subContent) {
+    isFixed = true;
     state = state.copyWith(subContent: subContent);
   }
 
   /// 履歴書のフォントを変更
   void updateFont(String? font) {
+    isFixed = true;
     state = state.copyWith(font: font);
   }
 
@@ -72,11 +85,13 @@ class ResumeNotifier extends StateNotifier<Resume> {
     final resumes = await _repository.loadResume() ?? [];
     resumes.add(resume.copyWith(id: id));
     await _repository.saveResumes(resumes);
+    isFixed = false;
     return true;
   }
 
   /// リセット
   void reset() {
+    isFixed = false;
     state = Resume(isCareer: false);
   }
 }

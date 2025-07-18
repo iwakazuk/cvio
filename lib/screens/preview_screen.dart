@@ -61,6 +61,7 @@ class PreviewScreen extends HookConsumerWidget {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text('PDF生成に失敗しました: $error')),
         );
+        Navigator.pop(context);
       });
       return null;
     }, []);

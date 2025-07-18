@@ -9,7 +9,9 @@ import 'package:image_picker/image_picker.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:path/path.dart' as p;
+import 'package:permission_handler/permission_handler.dart';
 
+import '../helper/permissoin_handler.dart';
 import '../provider/personal_info_error_message_provider.dart';
 import '../utils/app_space.dart';
 import '../utils/app_text_style.dart';
@@ -38,11 +40,37 @@ class PersonalInfoScreen extends HookConsumerWidget {
       appBar: AppBar(
         title: Text('個人情報登録', style: AppTextStyle.header),
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back_ios),
+          icon: const Icon(Icons.close_rounded),
           onPressed: () {
-            personalInfoNotifier.reset();
-            ref.read(personalInfoErrorMessageProvider.notifier).reset();
-            Navigator.of(context).pop();
+            if (personalInfoNotifier.isFixed) {
+              showDialog(
+                  context: context,
+                  builder: (dialogContext) {
+                    return AlertDialog(
+                      title: const Text('確認'),
+                      content: const Text('変更を保存せずに閉じますか？'),
+                      actions: [
+                        TextButton(
+                          onPressed: () => Navigator.of(context).pop(),
+                          child: const Text('キャンセル'),
+                        ),
+                        TextButton(
+                          onPressed: () {
+                            personalInfoNotifier.reset();
+                            ref
+                                .read(personalInfoErrorMessageProvider.notifier)
+                                .reset();
+                            Navigator.pop(dialogContext);
+                            Navigator.of(context).pop();
+                          },
+                          child: const Text('閉じる'),
+                        ),
+                      ],
+                    );
+                  });
+            } else {
+              Navigator.of(context).pop();
+            }
           },
         ),
         actions: [
@@ -375,7 +403,7 @@ class PersonalInfoScreen extends HookConsumerWidget {
                 ],
               ),
             ),
-            AppSpace.hL,
+            AppSpace.hXL,
           ],
         ),
       ),
@@ -481,50 +509,48 @@ class PersonalInfoScreen extends HookConsumerWidget {
 
   // ギャラリーから画像を選択（ImagePicker）
   Future<void> _pickImage(WidgetRef ref) async {
-    try {
-      final XFile? pickedFile = await ImagePicker().pickImage(
-        source: ImageSource.gallery,
-      );
-      if (pickedFile == null) return;
-      // アプリの書き込み可能なディレクトリ（Documentフォルダなど）を取得
-      final appDocDir = await getApplicationDocumentsDirectory();
+    if (!await requestGalleryPermission()) return;
 
-      // 元のファイル名を使ってコピー先のパスを組み立てる
-      final fileName = p.basename(pickedFile.path);
+    try {
+      final XFile? pickedFile =
+      await ImagePicker().pickImage(source: ImageSource.gallery);
+      if (pickedFile == null) return;
+
+      final appDocDir = await getApplicationDocumentsDirectory();
+      final fileName  = p.basename(pickedFile.path);
       final savedPath = p.join(appDocDir.path, fileName);
 
-      // ファイルをコピー
       final savedFile = await File(pickedFile.path).copy(savedPath);
       ref.read(personalInfoProvider.notifier).updateImage(savedFile.path);
-    } catch (e) {
-      debugPrint('画像選択中にエラーが発生しました: $e');
+    } catch (e, st) {
+      debugPrint('画像選択中にエラー: $e\n$st');
     }
   }
 
-  // FilePickerを使って画像ファイルを選択
+// FilePicker を使って画像ファイルを選択
   Future<void> _pickFile(WidgetRef ref) async {
+    if (!await requestGalleryPermission()) return;
+
     try {
       final result = await FilePicker.platform.pickFiles(
         type: FileType.custom,
         allowedExtensions: ['png', 'jpg', 'jpeg', 'heic'],
-        allowMultiple: false,
       );
-      if (result == null || result.files.isEmpty) return null;
+      if (result == null || result.files.isEmpty) return;
 
-      // 選択されたファイルのパス（仮）
       final pickedPath = result.files.single.path;
-      if (pickedPath == null) return null;
+      if (pickedPath == null) return;
 
-      final docDir = await getApplicationDocumentsDirectory();
-      final fileName = p.basename(pickedPath);
+      final docDir    = await getApplicationDocumentsDirectory();
+      final fileName  = p.basename(pickedPath);
       final savedPath = p.join(docDir.path, fileName);
 
-      // ドキュメントフォルダにコピー
-      final savedFile = await File(pickedPath).copy(savedPath);
+      final savedFile =
+      await File(pickedPath).copy(savedPath);
 
       ref.read(personalInfoProvider.notifier).updateImage(savedFile.path);
-    } catch (e) {
-      debugPrint('ファイル選択中にエラーが発生しました: $e');
+    } catch (e, st) {
+      debugPrint('ファイル選択中にエラー: $e\n$st');
     }
   }
 }

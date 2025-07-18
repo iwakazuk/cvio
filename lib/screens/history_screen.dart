@@ -33,10 +33,35 @@ class HistoryScreen extends HookConsumerWidget {
       appBar: AppBar(
         title: Text('学歴・職歴入力', style: AppTextStyle.header),
         leading: IconButton(
-          icon: Icon(Icons.arrow_back_ios),
+          icon: Icon(Icons.close_rounded),
           onPressed: () {
-            historyNotifier.reset();
-            Navigator.pop(context);
+            if(historyNotifier.isFixed) {
+              showDialog(
+                context: context,
+                builder: (dialogContext) => AlertDialog(
+                  title: const Text('確認'),
+                  content: const Text('変更を保存せずに閉じますか？'),
+                  actions: [
+                    TextButton(
+                      onPressed: () => Navigator.pop(dialogContext),
+                      child: Text('キャンセル'),
+                    ),
+                    TextButton(
+                      onPressed: () {
+                        historyNotifier.reset();
+                        Navigator.pop(dialogContext);
+                        Navigator.pop(context);
+                      },
+                      child: Text('閉じる'),
+                    ),
+                  ],
+                ),
+              );
+              return;
+            } else {
+              historyNotifier.reset();
+              Navigator.pop(context);
+            }
           },
         ),
         actions: [
@@ -178,6 +203,7 @@ class HistoryScreen extends HookConsumerWidget {
                 ],
               ),
             ),
+            AppSpace.hXL,
           ],
         ),
       ),

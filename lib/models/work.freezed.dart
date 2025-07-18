@@ -21,7 +21,7 @@ mixin _$Work {
   /// 役職
   String? get position;
 
-  /// 入社時期 / 退職時期（年）
+  /// 入社時期 / 退職時期（年）TODO: 年と月を分けるかどうか
   String? get year;
 
   /// 入社時期 / 退職時期（月）
@@ -162,7 +162,7 @@ class _Work implements Work {
   @override
   final String? position;
 
-  /// 入社時期 / 退職時期（年）
+  /// 入社時期 / 退職時期（年）TODO: 年と月を分けるかどうか
   @override
   final String? year;
 

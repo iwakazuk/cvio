@@ -12,6 +12,7 @@ import '../repository/personal_info_repository.dart';
 /// 学歴・職歴を管理する StateNotifier
 class HistoryNotifier extends StateNotifier<History> {
   final HistoryRepository _repository;
+  bool isFixed = false;
 
   HistoryNotifier(this._repository, History initial) : super(initial);
 
@@ -44,25 +45,35 @@ class HistoryNotifier extends StateNotifier<History> {
   /// 保存（変更なし）
   Future<bool> saveToDb() async {
     await _repository.saveHistory(state);
+    isFixed = false;
     return true;
   }
 
   // ──────────────────────────────
   /// 追加系
-  void addAcademic(Academic academic) => state = state.copyWith(
-          academics: _sortedAcademics(
-        [...state.academics, academic],
-      ));
+  void addAcademic(Academic academic) {
+    isFixed = true;
+    state = state.copyWith(
+        academics: _sortedAcademics(
+      [...state.academics, academic],
+    ));
+  }
 
-  void addWork(Work work) => state = state.copyWith(
-          works: _sortedWorks(
-        [...state.works, work],
-      ));
+  void addWork(Work work) {
+    isFixed = true;
+    state = state.copyWith(
+        works: _sortedWorks(
+      [...state.works, work],
+    ));
+  }
 
-  void addQualification(Qualification q) => state = state.copyWith(
-          qualifications: _sortedQualifications(
-        [...state.qualifications, q],
-      ));
+  void addQualification(Qualification q) {
+    isFixed = true;
+    state = state.copyWith(
+        qualifications: _sortedQualifications(
+      [...state.qualifications, q],
+    ));
+  }
 
   // ──────────────────────────────
   /// 更新系
@@ -70,18 +81,21 @@ class HistoryNotifier extends StateNotifier<History> {
     if (index < 0 || index >= state.academics.length) return;
     final list = [...state.academics]..[index] = academic;
     state = state.copyWith(academics: _sortedAcademics(list));
+    isFixed = true;
   }
 
   void updateWork(Work work, int index) {
     if (index < 0 || index >= state.works.length) return;
     final list = [...state.works]..[index] = work;
     state = state.copyWith(works: _sortedWorks(list));
+    isFixed = true;
   }
 
   void updateQualification(Qualification q, int index) {
     if (index < 0 || index >= state.qualifications.length) return;
     final list = [...state.qualifications]..[index] = q;
     state = state.copyWith(qualifications: _sortedQualifications(list));
+    isFixed = true;
   }
 
   // ──────────────────────────────
@@ -90,21 +104,27 @@ class HistoryNotifier extends StateNotifier<History> {
     if (index < 0 || index >= state.academics.length) return;
     final list = [...state.academics]..removeAt(index);
     state = state.copyWith(academics: list);
+    isFixed = true;
   }
 
   void deleteWork(int index) {
     if (index < 0 || index >= state.works.length) return;
     final list = [...state.works]..removeAt(index);
     state = state.copyWith(works: list);
+    isFixed = true;
   }
 
   void deleteQualification(int index) {
     if (index < 0 || index >= state.qualifications.length) return;
     final list = [...state.qualifications]..removeAt(index);
     state = state.copyWith(qualifications: list);
+    isFixed = true;
   }
 
-  void reset() => state = History();
+  void reset() {
+    isFixed = false;
+    state = History();
+  }
 }
 
 /// 個人情報をグローバルに提供する StateNotifierProvider
