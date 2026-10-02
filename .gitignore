@@ -30,3 +30,15 @@ bin/
 
 # FVM Version Cache
 .fvm/
+
+# Flutter build cache
+.env
+.dart_tool
+.idea
+build
+
+# Local Android release signing material (never commit)
+.local-signing/
+*.p12
+*.jks
+*.keystore
