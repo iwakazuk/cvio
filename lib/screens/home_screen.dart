@@ -36,16 +36,7 @@ class HomeScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('ダッシュボード'),
-        actions: [
-          Builder(
-            builder: (ctx) => IconButton(
-              icon: const Icon(Icons.menu),
-              onPressed: () => Scaffold.of(ctx).openEndDrawer(),
-            ),
-          ),
-        ],
       ),
-      endDrawer: _drawer(context),
       body: Padding(
         padding: AppSpace.pxM,
         child: Column(
@@ -77,6 +68,12 @@ class HomeScreen extends StatelessWidget {
                     label: '作成',
                     onTap: () =>
                         _openModal(context, ResumeCreationScreen()),
+                  ),
+                  _buildFeatureCard(
+                    context,
+                    icon: Icons.cloud_upload_outlined,
+                    label: 'エクスポート',
+                    onTap: () => context.push('/export'),
                   ),
                   _buildFeatureCard(
                     context,
@@ -123,88 +120,4 @@ class HomeScreen extends StatelessWidget {
     );
   }
 
-  Widget _drawer(BuildContext context) {
-    return Drawer(
-      child: SafeArea(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            // ── ヘッダー ───────────────────────────────────────
-            DrawerHeader(
-              decoration: const BoxDecoration(color: Colors.deepOrangeAccent),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: const [
-                  Text('メニュー',
-                      style: TextStyle(color: Colors.white, fontSize: 24)),
-                  SizedBox(height: 8),
-                  Text('ようこそ！',
-                      style: TextStyle(color: Colors.white70, fontSize: 14)),
-                ],
-              ),
-            ),
-            // ── メニュー ───────────────────────────────────────
-            Expanded(
-              child: ListView(
-                padding: EdgeInsets.zero,
-                children: [
-                  const Divider(),
-                  _drawerItem(
-                    context,
-                    icon: Icons.help_outline,
-                    title: '使い方・ヘルプ',
-                    onTap: () => context.push('/help'),
-                  ),
-                  _drawerItem(
-                    context,
-                    icon: Icons.article,
-                    title: '利用規約',
-                    onTap: () => context.push('/terms'),
-                  ),
-                  _drawerItem(
-                    context,
-                    icon: Icons.privacy_tip,
-                    title: 'プライバシーポリシー',
-                    onTap: () => context.push('/privacy'),
-                  ),
-                  _drawerItem(
-                    context,
-                    icon: Icons.mail_outline,
-                    title: 'お問い合わせ',
-                    onTap: () => context.push('/contact'),
-                  ),
-                ],
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(16),
-              child: Text(
-                'バージョン 1.0.0',
-                style: Theme.of(context)
-                    .textTheme
-                    .bodySmall
-                    ?.copyWith(color: Colors.grey),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  ListTile _drawerItem(
-      BuildContext context, {
-        required IconData icon,
-        required String title,
-        required VoidCallback onTap,
-      }) {
-    return ListTile(
-      leading: Icon(icon, color: Colors.deepOrange),
-      title: Text(title),
-      onTap: () {
-        Navigator.of(context).pop(); // Drawer を閉じる
-        onTap();
-      },
-    );
-  }
 }

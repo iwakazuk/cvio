@@ -44,7 +44,7 @@ class PreviewScreen extends HookConsumerWidget {
     useEffect(() {
       isLoading.value = true;
       Future(() async {
-        final result = await Future.wait<void>([
+        final result = await Future.wait<Object>([
           historyNotifier.loadFromDb(),
           personalInfoNotifier.loadFromDb(),
           resumeNotifier.loadFromDb(resumeKey),

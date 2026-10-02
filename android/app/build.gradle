@@ -4,6 +4,22 @@ plugins {
     id "dev.flutter.flutter-gradle-plugin"
 }
 
+def signingPath = System.getenv("ANDROID_KEYSTORE_PATH")
+def signingPassword = System.getenv("ANDROID_STORE_PASSWORD")
+def signingKeyPassword = System.getenv("ANDROID_KEY_PASSWORD")
+def signingAlias = System.getenv("ANDROID_KEY_ALIAS")
+def hasReleaseSigning = signingPath && signingPassword && signingKeyPassword && signingAlias
+
+// Never silently sign release APKs with an ephemeral debug key.
+gradle.taskGraph.whenReady { graph ->
+    def releaseRequested = graph.allTasks.any {
+        it.project == project && it.name.toLowerCase().contains("release")
+    }
+    if (releaseRequested && !hasReleaseSigning) {
+        throw new GradleException("Release signing is not configured. See docs/android-build.md.")
+    }
+}
+
 android {
     namespace = "com.example.cvio"
     compileSdk = flutter.compileSdkVersion
@@ -26,9 +42,21 @@ android {
         versionName = flutter.versionName
     }
 
+    signingConfigs {
+        release {
+            if (hasReleaseSigning) {
+                storeFile = file(signingPath)
+                storeType = "PKCS12"
+                storePassword = signingPassword
+                keyAlias = signingAlias
+                keyPassword = signingKeyPassword
+            }
+        }
+    }
+
     buildTypes {
         release {
-            signingConfig = signingConfigs.debug
+            signingConfig = signingConfigs.release
         }
     }
 }

@@ -1,3 +1,4 @@
+import 'screens/export_screen.dart';
 import 'package:cvio/screens/history_screen.dart';
 import 'package:cvio/screens/preview_screen.dart';
 import 'package:cvio/screens/resumes_screen.dart';
@@ -31,6 +32,10 @@ final GoRouter router = GoRouter(
         final key = state.extra as String;
         return PreviewScreen(resumeKey: key);
       },
+    ),
+    GoRoute(
+      path: '/export',
+      builder: (context, state) => const ExportScreen(),
     ),
     GoRoute(
       path: '/resumes',

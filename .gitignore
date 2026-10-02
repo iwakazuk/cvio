@@ -36,3 +36,9 @@ bin/
 .dart_tool
 .idea
 build
+
+# Local Android release signing material (never commit)
+.local-signing/
+*.p12
+*.jks
+*.keystore
