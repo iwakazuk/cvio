@@ -26,7 +26,14 @@ void main() {
     expect(find.text('Googleアカウント未接続'), findsOneWidget);
     expect(find.text('https://drive.google.com/drive/folders/saved-folder'), findsOneWidget);
     final exportButton = find.byWidgetPredicate((widget) => widget is ElevatedButton);
-    await tester.scrollUntilVisible(exportButton, 300);
+    await tester.scrollUntilVisible(
+      exportButton,
+      300,
+      scrollable: find.descendant(
+        of: find.byType(ListView),
+        matching: find.byType(Scrollable),
+      ).first,
+    );
     final button = tester.widget<ElevatedButton>(exportButton);
     expect(button.onPressed, isNull);
     await tester.pumpWidget(const SizedBox.shrink());
