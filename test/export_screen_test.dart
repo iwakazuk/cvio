@@ -12,6 +12,7 @@ void main() {
     directory = await Directory.systemTemp.createTemp('cvio-export-ui-');
     Hive.init(directory.path);
     settings = await Hive.openBox<String>('drive_export_settings');
+    await settings.put('destination_url', 'https://drive.google.com/drive/folders/saved-folder');
   });
   tearDown(() async {
     await Hive.close();
@@ -19,7 +20,6 @@ void main() {
   });
 
   testWidgets('requires a recording and restores the saved destination', (tester) async {
-    await settings.put('destination_url', 'https://drive.google.com/drive/folders/saved-folder');
     await tester.pumpWidget(const MaterialApp(home: ExportScreen()));
     await tester.pumpAndSettle();
     expect(find.text('通話音声メモの準備'), findsOneWidget);
