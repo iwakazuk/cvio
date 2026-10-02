@@ -5,7 +5,7 @@
 `.github/workflows/android-apk.yml` は手動実行専用です。push・PR・定期実行では動きません。
 
 - GitHub管理のUbuntu 24.04で実行。このPCへのインストールは不要。
-- Flutter 3.29.3 / Java 17。既存のAndroid Gradle Plugin 8.8.2とGradle 8.14を利用。
+- Flutter 3.29.3 / Java 17 / Android NDK 27.0.12077973。既存のAndroid Gradle Plugin 8.8.2とGradle 8.14を利用。
 - AQUOS wish4向けのarm64 release APKを1つ生成。
 - ジョブのタイムアウトは30分。1リポジトリにつき同時に1件実行。
 - APKと公開署名証明書情報を3日間保存。依存キャッシュは明示的には保存しない。
