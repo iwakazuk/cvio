@@ -48,8 +48,8 @@
 
 ## 検証状況
 
-ビルド、Flutter/Dartコマンド、依存関係のインストール、実ファイルのアップロードは実施していない。
-サービスのテストコードは `test/drive_export_service_test.dart`、画面の初期状態のテストは `test/export_screen_test.dart` に追加。実行は未実施。
+2026-10-02にGitHub Actionsで依存取得・コード生成、テスト11件、署名付きAPK作成・署名検証が成功。ローカルでのビルドやツール導入、実ファイルのDriveアップロードは実施していない。
+サービスのテストコードは `test/drive_export_service_test.dart`、画面の初期状態のテストは `test/export_screen_test.dart`。いずれもActions上で成功。
 `test/widget_test.dart` はダッシュボード確認用へ更新済み。APKの手動ビルド構成は [android-build.md](android-build.md) を参照。
 
 ## 参照
